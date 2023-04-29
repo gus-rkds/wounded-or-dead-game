@@ -5,13 +5,13 @@
     - [ ] Derrota
 
 - [ ] Dinámica
-    - [ ] Número de la partida (random, 4 dígitos sin números repetidos)
+    - [x] Número de la partida (random, 4 dígitos sin números repetidos)
     - [ ] Turnos (7)
     - [ ] Mensaje de Juego
     - [ ] Input del usuario
-        - [ ] Entero
-        - [ ] 4 dígitos
-        - [ ] Sin números repetidos
+        - [x] Entero
+        - [x] 4 dígitos
+        - [x] Sin números repetidos
         - [ ] Si repite un número => se pide de nuevo
     - [ ] Comparación con el número random (muertos, heridos)
         - [ ] Si el número es igual, se termina el juego
