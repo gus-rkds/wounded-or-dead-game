@@ -67,7 +67,7 @@ main() {
         cout << "Por favor, ingrese un entero: ";
         cin >> user_input;
         
-        // Verificar si todos los caracteres son dígitos
+        // verify is the characters of the string are all digits
         bool all_digits = true;
         for (char c : user_input) {
             if (!isdigit(c)) {
@@ -76,8 +76,9 @@ main() {
             }
         }
         
+        // if the characters are all digits and the numbers is valid
         if (all_digits and verify(stoi(user_input))) {
-            // El usuario ha ingresado un entero válido
+            // the user input is valid
             number = stoi(user_input);
             valid_input = true;
         } else {
