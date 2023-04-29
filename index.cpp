@@ -60,11 +60,35 @@ int generate() {
 }
 
 main() {
-    int number = 1234;
-    if (verify(number)){
-        cout << number << " is valid" << endl;
-    } else {
-        cout << number << " is not valid" << endl;
+    string user_input;
+    int number;
+    bool valid_input = false;
+    
+    while (!valid_input) {
+        cout << "Por favor, ingrese un entero: ";
+        cin >> user_input;
+        
+        // Verificar si todos los caracteres son dígitos
+        bool all_digits = true;
+        for (char c : user_input) {
+            if (!isdigit(c)) {
+                all_digits = false;
+                break;
+            }
+        }
+        
+        if (all_digits) {
+            // El usuario ha ingresado un entero válido
+            number = stoi(user_input);
+            valid_input = true;
+        } else {
+            cout << "El valor ingresado no es un entero válido. Inténtelo de nuevo." << endl;
+        }
     }
+    
+    cout << "El entero ingresado es: " << number << endl;
+
+
+
     cout << generate() << endl;
 }
