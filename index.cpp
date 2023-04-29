@@ -82,7 +82,7 @@ main() {
             number = stoi(user_input);
             valid_input = true;
         } else {
-            cout << "El valor ingresado no es un entero válido. Inténtelo de nuevo." << endl;
+            cout << "El valor ingresado no es un entero valido, Intentelo de nuevo" << endl;
         }
     }
     
