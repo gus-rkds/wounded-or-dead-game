@@ -1,7 +1,26 @@
 #include <iostream>
 #include <ctime>
-
 using namespace std;
+
+void clear_console() {
+    // Function that clears the console
+    // input: none
+    // output: clear the console
+    cout << "\033[2J\033[1;1H";
+}
+
+void input_continue_stop() {
+    // Function that waits for the user to press enter to continue
+    // If use other key, the program stops
+    // input: none
+    // output: create a pause in the program for continue or stop
+    string input;
+    cout << "Presione enter para continuar o cualquier otra tecla para salir: ";
+    cin >> input;
+    if (input != "") {
+        exit(0);
+    }
+}
 
 bool isDiferent(int num) {
     // Function that verifies if the four digits of a number are Diferent
