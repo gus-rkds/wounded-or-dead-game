@@ -4,15 +4,19 @@
 
 using namespace std;
 
+
+// Function that verifies if the four digits of a number are Diferent
+// input: an integer number of four digits
+// output: a boolean value that indicates if the digits of the number are Diferent
 bool isDiferent(int num) {
-    int digitos[4];
+    int digits[4]; // create an array to store the digits of the number
     for (int i = 0; i < 4; i++) {
-        digitos[i] = num % 10; // Se obtiene el último dígito del número
-        num /= 10; // Se elimina el último dígito del número
+        digits[i] = num % 10; // obtains the last digit of the number
+        num /= 10; // delete the last digit of the number
     }
     for (int i = 0; i < 4; i++) {
         for (int j = i + 1; j < 4; j++) {
-            if (digitos[i] == digitos[j]) { // Si hay dígitos iguales, el número no es válido
+            if (digits[i] == digits[j]) { // if two digits are equal, the number is not valid
                 return false;
             }
         }
@@ -20,12 +24,14 @@ bool isDiferent(int num) {
     return true;
 }
 
+// Function that generates a random number of four digits having all digits diferent
+// output: generate a random number of four digits having all digits diferent
 int generate() {
     int num;
-    srand(time(NULL)); // Se inicializa el generador de números aleatorios con la hora actual
+    srand(time(NULL)); // inicialize the random source time
     do {
-        num = rand() % 9000 + 1000; // Se genera un número aleatorio de 4 dígitos
-    } while (!isDiferent(num)); // Se comprueba si los dígitos del número son diferentes
+        num = rand() % 9000 + 1000; // generate a random number between 1000 and 9999
+    } while (!isDiferent(num)); // verifies if the number is valid
     return num;
 }
 
