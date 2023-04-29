@@ -8,11 +8,10 @@
     - [x] Número de la partida (random, 4 dígitos sin números repetidos)
     - [ ] Turnos (7)
     - [ ] Mensaje de Juego
-    - [ ] Input del usuario
+    - [x] Input del usuario
         - [x] Entero
         - [x] 4 dígitos
         - [x] Sin números repetidos
-        - [ ] Si repite un número => se pide de nuevo
     - [ ] Comparación con el número random (muertos, heridos)
         - [ ] Si el número es igual, se termina el juego
             - [ ] Mensaje de Victoria => Preguntar si desea volver a jugar
@@ -26,4 +25,7 @@
 
 ## To-Do Interesantes
 - [ ] Colores en los textos
+- [ ] Dificultades
+- [ ] Leaderboard
+- [ ] Agregar idioma español con local.h
 
