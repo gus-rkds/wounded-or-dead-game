@@ -20,6 +20,7 @@ void inputContinueStop() {
     if (input != "") {
         exit(0);
     }
+    cin.ignore();
 }
 
 int floor(float num) {
@@ -106,55 +107,66 @@ bool isNumberHave4DigitDifferent(int num) {
     return true;
 }
 
-bool checkTurnInput(int number){
+bool isStringOfInt(string str){
+    // Function that verifies if a string is a string of is characters 
+    // input: a string 
+    // output: a boolean value that indicates if the string is a string of characters
+
+    for (char characters : str) {
+        if (!isdigit(characters)) {
+            return false;
+            break;
+        }
+    }
+
+    return true; 
+}
+
+bool validTurnInput(string turn_input){
     // Function that verifies all the inputs turns from the user  
     // (check if the input is [int, 4 digits, all digits diferent] )
-    // input: an integer
-    // output: a boolean value that indicates if the number is valid, if not, print the error
-    string userInput;
-    bool validInput = false;
+    // input: the string of the user input for the turn 
+    // output: a boolean value that indicates if the input is valid
 
-    if (number < 1000 or number > 9999){
+    int input_int = 0;
+    // check and get the input in int
+    if(isStringOfInt(turn_input)){
+        input_int = stoi(turn_input);
+    }
+    else {
         return false;
-    } else if (number != int(number)){
+    }
+
+    // check if the int have exactly 4 digits and all digits are diferent
+    if (input_int < 1000 or input_int> 9999){
         return false;
-    } else if (!isNumberHave4DigitDifferent(number)){
+    }
+    else if (!isNumberHave4DigitDifferent(input_int)){
         return false;
     }
 
     return true;
 }
 
-
 int main(){
-    string user_input;
-    int number;
-    bool valid_input = false;
+    string user_input = "";
+    int number_input = 0;
     
-    while (!valid_input) {
+    bool invalid_input_turn = true;
+    while (invalid_input_turn) {
         cout << "Por favor, ingrese un entero: ";
         cin >> user_input;
         
-        // verify is the characters of the string are all digits
-        bool all_digits = true;
-        for (char c : user_input) {
-            if (!isdigit(c)) {
-                all_digits = false;
-                break;
-            }
-        }
-        
         // if the characters are all digits and the numbers is valid
-        if (all_digits and checkTurnInput(stoi(user_input))) {
-            // the user input is valid
-            number = stoi(user_input);
-            valid_input = true;
+        if (validTurnInput(user_input) ){
+            number_input = stoi(user_input);
+            invalid_input_turn = false;
         } else {
             cout << "El valor ingresado no es un entero valido. Intentelo de nuevo." << endl;
         }
     }
     
-    cout << "El entero ingresado es: " << number << endl;
+    cout << "El entero ingresado es: " << number_input << endl;
     
     return 0;
 }
