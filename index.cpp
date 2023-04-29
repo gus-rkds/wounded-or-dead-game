@@ -26,16 +26,15 @@ bool verify (int number){
     // Function that verifies all the inputs from the user  
     // input: an integer
     // output: a boolean value that indicates if the number is valid, if not, print the error
+    string userInput;
+    bool validInput = false;
     if (number < 1000 or number > 9999){
-        cout << "The number must have four digits";
         return false;
     } else if (number != int(number)){
-        cout << "The number must be an integer";
         return false;
     } else if (!isDiferent(number)){
-        cout << "The number must have all digits diferent";
         return false;
-    } 
+    }
     return true;
 }
 
@@ -77,18 +76,15 @@ main() {
             }
         }
         
-        if (all_digits) {
+        if (all_digits and verify(stoi(user_input))) {
             // El usuario ha ingresado un entero válido
             number = stoi(user_input);
             valid_input = true;
         } else {
-            cout << "El valor ingresado no es un entero valido, Intentelo de nuevo" << endl;
+            cout << "El valor ingresado no es un entero valido. Intentelo de nuevo." << endl;
         }
     }
     
     cout << "El entero ingresado es: " << number << endl;
-
-
-
-    cout << generate() << endl;
+    
 }
