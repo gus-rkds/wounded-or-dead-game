@@ -160,7 +160,8 @@ void clearConsole() {
     output: clear the console
     */
 
-    cout << "\033[2J\033[1;1H";
+    // cout << "\033[2J\033[1;1H";
+    system("cls");
 }
 
 int stopInputNumberState(string informative_text, int last_number_to_input) {
