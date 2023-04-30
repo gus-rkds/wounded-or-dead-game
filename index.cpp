@@ -374,20 +374,20 @@ void startGame(){
 
     // basic variables of the game
     int number_of_rounds = 7;
-    int number_of_game_str = to_string( randomIntFourDiffDigit() );
+    string number_of_game_str = to_string( randomIntFourDiffDigit() );
 
     string round_template[] = {
         "Turno T: ",
         "Muertos: M        Heridos: H", 
         "                            ",
-    }
+    };
     int turno_index = 7;
     int muerto_index = 9;
     int herido_index = 27;
     int left_margin = (round_template[2].length() - 80) / 2;
 
     // variables to store the user input 
-    int user_input = 0;
+    string user_input = " ";
     bool user_win = false;
 
     // print the title 
