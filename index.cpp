@@ -245,7 +245,8 @@ int mainMenu(){
 
     char input_user = ' '; 
     int user_actual_option = 1;
-    while(input_user != 'e'){
+
+    while(input_user != 'e' or input_user != '\r' or input_user != '\n'){
         // print the title
         for (string title : title_header) {
             centeredPrint(title);
@@ -296,7 +297,7 @@ int mainMenu(){
                 user_actual_option = 1;
             }
         }
-        else if(input_user == 'e'){
+        else if(input_user == 'e' or input_user == '\r' or input_user == '\n'){
             break;
         };
 
@@ -364,6 +365,7 @@ int main(){
         }
         // show the instructions
         else if(menu_user_option == 2){
+            // show the instructions and wait for the user press key to continue
             printInstructions();
         }
         // exit the game
