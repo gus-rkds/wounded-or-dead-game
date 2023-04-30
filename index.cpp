@@ -118,7 +118,7 @@ bool isStringOfInt(string str){
     return true; 
 }
 
-bool validTurnInput(string turn_input){
+bool validRoundInput(string turn_input){
     /*
     Function that verifies all the inputs turns from the user  
     (check if the input is [int, 4 digits, all digits diferent] )
@@ -216,11 +216,18 @@ void centeredPrint(string text, char emptySpaces = ' ', int widthLine = 80){
     }
 }
 
-int mainMenu(){
+void printWithLeftMargin(string text_to_print, int left_margin, char char_to_put = ' '){
+    for(int i = 1; i <= left_margin; i++){
+        cout << char_to_put;
+    }
+    cout << text_to_print;
+}
+
+void printTitle(){
     /*
-    Function that prints the main menu of the game 
+    Function that prints the title of the game 
     input: none
-    output: print the main menu of the game
+    output: print the title of the game
     */
 
     string title_header[] = { 
@@ -230,6 +237,19 @@ int mainMenu(){
         "",
         "",
     };
+
+    for (string line : title_header) {
+        centeredPrint(line);
+        cout << endl;
+    }
+}
+
+int mainMenu(){
+    /*
+    Function that prints the main menu of the game 
+    input: none
+    output: print the main menu of the game and return the option selected by the user
+    */
 
     string main_menu_options_template[] = {
         "  1. Jugar           ",
@@ -248,10 +268,7 @@ int mainMenu(){
 
     while(input_user != 'e' or input_user != '\r' or input_user != '\n'){
         // print the title
-        for (string title : title_header) {
-            centeredPrint(title);
-            cout << endl;
-        }
+        printTitle();
 
         // restart the options
         copy(begin(main_menu_options_template), 
@@ -308,13 +325,11 @@ int mainMenu(){
 }
 
 void printInstructions(){
-    string title_header[] = {
-        "-------------------",
-        "-MUERTOS Y HERIDOS-",
-        "-------------------",
-        "",
-        "",
-    };
+    /*
+    Function that prints the instructions of the game 
+    input: none
+    output: print the instructions of the game and wait for the user key to continue
+    */
 
     string instructions_text[] = {
         "Instrucciones:",
@@ -333,14 +348,13 @@ void printInstructions(){
         "Intento 2: 1234                                                ",
         "Resultado: !Ganaste¡                                           ",
         "                                                               ",
-        "Presiona cualquier tecla para volver al menu principal         ",
+        "                                                               ",
+        "                                                               ",
+        "   ¡Presiona cualquier tecla para volver al menu principal!    ",
     };
 
     // print the title 
-    for (string title : title_header) {
-        centeredPrint(title);
-        cout << endl;
-    }
+    printTitle();
 
     // print the instructions 
     for (string instructions : instructions_text) {
@@ -349,6 +363,73 @@ void printInstructions(){
     }
 
     getch();
+}
+
+void startGame(){
+    /*
+    Function that starts the game 
+    input: none
+    output: start the game
+    */
+
+    // basic variables of the game
+    int number_of_rounds = 7;
+    int number_of_game_str = to_string( randomIntFourDiffDigit() );
+
+    string round_template[] = {
+        "Turno T: ",
+        "Muertos: M        Heridos: H", 
+        "                            ",
+    }
+    int turno_index = 7;
+    int muerto_index = 9;
+    int herido_index = 27;
+    int left_margin = (round_template[2].length() - 80) / 2;
+
+    // variables to store the user input 
+    int user_input = 0;
+    bool user_win = false;
+
+    // print the title 
+    printTitle();
+
+    for(int actual_round = 1; actual_round <= number_of_rounds; actual_round++){
+        // actualize the template and print it
+        round_template[0][turno_index] = actual_round;
+        printWithLeftMargin(round_template[0], left_margin);
+
+        // get the user input
+        while(validRoundInput(user_input) == false){
+            cin >> user_input;
+            cin.ignore();
+        }
+        
+        // check if the user input is the same as the number of the game
+        if(user_input == number_of_game_str){
+            user_win = true;
+            break;
+        }
+        else if(user_input == "0000"){
+            // run backdoor
+            cout << "El numero es: " << number_of_game_str << endl;
+            actual_round -= 1;
+        }
+        else{
+            // get the number of deads and wounded
+            // int deads = getDeads(user_input, number_of_game_str);
+            // int wounded = getWounded(user_input, number_of_game_str);
+            char deads = '9';
+            char wounded = '9';
+
+            // actualize the death and wounded template and print 
+            round_template[1][muerto_index] = deads;
+            round_template[1][herido_index] = wounded;
+            centeredPrint(round_template[1]);
+            // print the number of deads and wounded
+        }
+
+        centeredPrint(round_template[2]);
+    }
 }
 
 int main(){
@@ -361,7 +442,7 @@ int main(){
     
         // start the game
         if(menu_user_option == 1){
-            
+            startGame();
         }
         // show the instructions
         else if(menu_user_option == 2){

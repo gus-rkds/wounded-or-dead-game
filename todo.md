@@ -2,16 +2,15 @@
 - [ ] Mensajes
     - [ ] Inicio
         - [x] Bienvenida 
-        - [ ] Instrucciones 
+        - [x] Instrucciones 
         - [ ] Opciones de Juego
-        - [ ] Menu con movimiento de flechitas
+        - [x] Menu con movimiento de flechitas
 		- [x] Opciones
-		- [ ] Entrada apropiada con enter
+		- [x] Entrada apropiada con enter
 		- [x] Movimiento entre las opciones
 		- [x] Visualización de la opción actual
-		- [ ] Leer el enter
-		- [ ] Hacer enter luego de presionar cualquier tecla (o hacer getline de 1 solo caracter)
-		- [ ] Aceptar flechitas para moverse
+		- [x] Leer el enter
+		- [x] Aceptar flechitas para moverse
     - [ ] Victoria
     - [ ] Derrota
 
@@ -24,13 +23,13 @@
         - [x] 4 dígitos
         - [x] Sin números repetidos
     - [ ] Comparación con el número random (muertos, heridos)
-        - [ ] Si el número es igual, se termina el juego
+        - [x] Si el número es igual, se termina el juego
             - [ ] Mensaje de Victoria => Preguntar si desea volver a jugar
-        - [ ] Si el número no es igual => revisa si quedan Turnos
-            - [ ] Si quedan Turnos
-                - [ ] Mensaje de Turno (numero de muertos y heridos)
+        - [x] Si el número no es igual => revisa si quedan Turnos
+            - [x] Si quedan Turnos
+                - [x] Mensaje de Turno (numero de muertos y heridos)
                 - [ ] (Nueva interfaz que muestre los turnos restantes?)
-                - [ ] Siguiente turno
+                - [x] Siguiente turno
             - [ ] Si no quedan Turnos => se termina el juego
                 - [ ] Mensaje de Derrota => Preguntar si desea volver a jugar
 
