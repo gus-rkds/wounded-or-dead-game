@@ -1,5 +1,6 @@
 #include <iostream>
 #include <ctime>
+#include <conio.h>
 using namespace std;
 
 int floor(float num) {
@@ -139,6 +140,13 @@ bool validTurnInput(string turn_input){
     return true;
 }
 
+// Visual, UI Code -------------------------------------------------------->
+// ------------------------------------------------------------------------>
+// ------------------------------------------------------------------------>
+// ------------------------------------------------------------------------>
+
+
+
 void clearConsole() {
     /*
     Function that clears the console
@@ -216,13 +224,13 @@ int mainMenu(){
         "",
     };
 
-    string main_menu_options_template[3] = {
+    string main_menu_options_template[] = {
         "  1. Jugar           ",
         "  2. Instrucciones   ",
         "  3. Salir           ",
     };
 
-    string main_menu_options[3] = {
+    string main_menu_options[] = {
         "  1. Jugar           ",
         "  2. Instrucciones   ",
         "  3. Salir           ",
@@ -256,7 +264,7 @@ int mainMenu(){
         }
        
         // get the user input 
-        cin >> input_user;
+        input_user = getch();
 
         // move the cursor based on the input, w is up, s is down
         if(input_user == 'w' or input_user == 'k'){
