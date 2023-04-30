@@ -244,7 +244,7 @@ int mainMenu(){
 
     char input_user = ' '; 
     int user_actual_option = 1;
-    while(input_user != '\0' or input_user != '\n' or input_user != 'e'){
+    while(input_user != 'e'){
         // print the title
         for (string title : title_header) {
             centeredPrint(title);
@@ -273,7 +273,10 @@ int mainMenu(){
         input_user = getch();
 
         // move the cursor based on the input, w is up, s is down
-        if(input_user == 'w' or input_user == 'k' or input_user == KEY_UP){
+        if(input_user == 'w' or input_user == 'k' or
+            input_user == 'W' or input_user == 'K' or
+            input_user == KEY_UP){
+
             if(user_actual_option > 1){
                 user_actual_option -= 1;
             }
@@ -281,7 +284,10 @@ int mainMenu(){
                 user_actual_option = 3;
             }
         }
-        else if(input_user == 's' or input_user == 'j' or input_user == KEY_DOWN){
+        else if(input_user == 's' or input_user == 'j'
+            or input_user == 'S' or input_user == 'J'
+            or input_user == KEY_DOWN){
+
             if(user_actual_option < 3){
                 user_actual_option += 1;
             }
@@ -289,7 +295,7 @@ int mainMenu(){
                 user_actual_option = 1;
             }
         }
-        else if(input_user == '\0' or input_user == '\n' or input_user == 'e'){
+        else if(input_user == 'e'){
             break;
         };
 
@@ -331,8 +337,8 @@ void printInstructions(){
 
 int main(){
     // start the game
-    bool game_state = true;
-    while(game_state){
+    bool game_running = true;
+    while(game_running){
         clearConsole();
         int menu_user_option = mainMenu();
         clearConsole();
@@ -347,7 +353,7 @@ int main(){
         }
         // exit the game
         else if(menu_user_option == 3){
-            game_state = false;
+            game_running = false;
         }
     }
 
