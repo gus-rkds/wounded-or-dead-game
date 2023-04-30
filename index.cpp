@@ -1,6 +1,12 @@
 #include <iostream>
 #include <ctime>
 #include <conio.h>
+
+#define KEY_UP 72
+#define KEY_DOWN 80
+#define KEY_LEFT 75
+#define KEY_RIGHT 77
+
 using namespace std;
 
 int floor(float num) {
@@ -267,7 +273,7 @@ int mainMenu(){
         input_user = getch();
 
         // move the cursor based on the input, w is up, s is down
-        if(input_user == 'w' or input_user == 'k'){
+        if(input_user == 'w' or input_user == 'k' or input_user == KEY_UP){
             if(user_actual_option > 1){
                 user_actual_option -= 1;
             }
@@ -275,7 +281,7 @@ int mainMenu(){
                 user_actual_option = 3;
             }
         }
-        else if(input_user == 's' or input_user == 'j'){
+        else if(input_user == 's' or input_user == 'j' or input_user == KEY_DOWN){
             if(user_actual_option < 3){
                 user_actual_option += 1;
             }
