@@ -1,6 +1,17 @@
 ## To-Do list
 - [ ] Mensajes
-    - [ ] Inicio (bienvenida e instrucciones de juego, texto para iniciar)
+    - [ ] Inicio
+        - [x] Bienvenida 
+        - [ ] Instrucciones 
+        - [ ] Opciones de Juego
+        - [ ] Menu con movimiento de flechitas
+		- [x] Opciones
+		- [ ] Entrada apropiada con enter
+		- [x] Movimiento entre las opciones
+		- [x] Visualización de la opción actual
+		- [ ] Leer el enter
+		- [ ] Hacer enter luego de presionar cualquier tecla (o hacer getline de 1 solo caracter)
+		- [ ] Aceptar flechitas para moverse
     - [ ] Victoria
     - [ ] Derrota
 

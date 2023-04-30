@@ -2,33 +2,14 @@
 #include <ctime>
 using namespace std;
 
-void clearConsole() {
-    // Function that clears the console
-    // input: none
-    // output: clear the console
-    cout << "\033[2J\033[1;1H";
-}
-
-void inputContinueStop() {
-    // Function that waits for the user to press enter to continue
-    // If use other key, the program stops
-    // input: none
-    // output: create a pause in the program for continue or stop
-    string input;
-    cout << "Presione enter para continuar o cualquier otra tecla para salir: ";
-    cin >> input;
-    if (input != "") {
-        exit(0);
-    }
-    cin.ignore();
-}
-
 int floor(float num) {
-    // Function that returns the floor of a number
-    // input: a float number
-    // output: the floor of the number
-    int floor = int(num);
+    /*
+    Function that returns the floor of a number
+    input: a float number
+    output: the floor of the number
+    */
 
+    int floor = int(num);
     // (if the number is negative, the floor is the number minus one)
     if (num < 0) {
         floor--;
@@ -37,9 +18,11 @@ int floor(float num) {
 }
 
 int randomNumberInt(int min, int max) {
-    // Function that generates a random int between two numbers
-    // input: the range of the random number in int
-    // output: a random int between the two numbers
+    /*
+    Function that generates a random int between two numbers
+    input: the range of the random number in int
+    output: a random int between the two numbers
+    */
     
     // set the random source
     srand(time(NULL)); 
@@ -48,9 +31,11 @@ int randomNumberInt(int min, int max) {
 }
 
 int randomIntFourDiffDigit() {
-    // Function that generates a random int of four differents digits 
-    // input: none
-    // output: a random int of four digits having all digits diferent
+    /*
+    Function that generates a random int of four differents digits 
+    input: none
+    output: a random int of four digits having all digits diferent
+    */
     
     // set the random source 
     srand(time(NULL)); 
@@ -80,9 +65,11 @@ int randomIntFourDiffDigit() {
 }
 
 bool isNumberHave4DigitDifferent(int num) {
-    // Function that verifies if the four digits of a int are Diferent
-    // input: an integer number of four digits
-    // output: a boolean value that indicates if the digits of the int are diferent
+    /*
+    Function that verifies if the four digits of a int are Diferent
+    input: an integer number of four digits
+    output: a boolean value that indicates if the digits of the int are diferent
+    */
     
     // get the digits of the number
     int numDigits[4]; 
@@ -108,9 +95,11 @@ bool isNumberHave4DigitDifferent(int num) {
 }
 
 bool isStringOfInt(string str){
-    // Function that verifies if a string is a string of is characters 
-    // input: a string 
-    // output: a boolean value that indicates if the string is a string of characters
+    /*
+    Function that verifies if a string is a string of is characters 
+    input: a string 
+    output: a boolean value that indicates if the string is a string of characters
+    */
 
     for (char characters : str) {
         if (!isdigit(characters)) {
@@ -123,13 +112,15 @@ bool isStringOfInt(string str){
 }
 
 bool validTurnInput(string turn_input){
-    // Function that verifies all the inputs turns from the user  
-    // (check if the input is [int, 4 digits, all digits diferent] )
-    // input: the string of the user input for the turn 
-    // output: a boolean value that indicates if the input is valid
+    /*
+    Function that verifies all the inputs turns from the user  
+    (check if the input is [int, 4 digits, all digits diferent] )
+    input: the string of the user input for the turn 
+    output: a boolean value that indicates if the input is valid
+    */
 
+    // check if the input is a string of int
     int input_int = 0;
-    // check and get the input in int
     if(isStringOfInt(turn_input)){
         input_int = stoi(turn_input);
     }
@@ -137,7 +128,7 @@ bool validTurnInput(string turn_input){
         return false;
     }
 
-    // check if the int have exactly 4 digits and all digits are diferent
+    // check if the input is a number of 4 digits and all digits are diferent
     if (input_int < 1000 or input_int> 9999){
         return false;
     }
@@ -148,25 +139,203 @@ bool validTurnInput(string turn_input){
     return true;
 }
 
-int main(){
-    string user_input = "";
-    int number_input = 0;
-    
-    bool invalid_input_turn = true;
-    while (invalid_input_turn) {
-        cout << "Por favor, ingrese un entero: ";
-        cin >> user_input;
-        
-        // if the characters are all digits and the numbers is valid
-        if (validTurnInput(user_input) ){
-            number_input = stoi(user_input);
-            invalid_input_turn = false;
-        } else {
-            cout << "El valor ingresado no es un entero valido. Intentelo de nuevo." << endl;
+void clearConsole() {
+    /*
+    Function that clears the console
+    input: none
+    output: clear the console
+    */
+
+    cout << "\033[2J\033[1;1H";
+}
+
+int stopInputNumberState(string informative_text, int last_number_to_input) {
+    /*
+    Function that waits for the user to input a number in a range of numbers 
+    (range is from 1 to lastNumberToInput)
+    input: the informative text to show to the user, the last number
+    output: the number inputed by the user
+    */
+
+    string input = "";
+    int input_int = 0;
+    bool invalid_input = true;
+    // request input until the input is in the range of numbers
+    cout << informative_text;
+    while(invalid_input){
+        cin >> input;
+
+        if( isStringOfInt(input) ){
+            input_int = stoi(input);
+
+            if( input_int >= 1 and input_int <= last_number_to_input ){
+                invalid_input = false;
+            }
         }
     }
+
+    cin.ignore();
+    return input_int;
+}
+
+void centeredPrint(string text, char emptySpaces = ' ', int widthLine = 80){
+    /*
+    Function that prints a text centered in a line 
+    input: the text to print, the character to fill the empty spaces, the width of the line 
+    output: print the text centered in a line
+    */ 
     
-    cout << "El entero ingresado es: " << number_input << endl;
+    // calculate the number of empty spaces 
+    int emptySpacesNumber = widthLine - text.length();
+    // calculate the number of empty spaces in each side of the text
+    int emptySpacesLeft = floor(emptySpacesNumber / 2);
+    int emptySpacesRight = emptySpacesNumber - emptySpacesLeft;
+
+    // print the text
+    for (int i = 1; i <= emptySpacesLeft; i++) {
+        cout << emptySpaces;
+    }
+    cout << text;
+    for (int i = 1; i <= emptySpacesRight; i++) {
+        cout << emptySpaces;
+    }
+}
+
+int mainMenu(){
+    /*
+    Function that prints the main menu of the game 
+    input: none
+    output: print the main menu of the game
+    */
+
+    string title_header[] = { 
+        "---------------------",
+        "- MUERTOS Y HERIDOS -",
+        "---------------------",
+        "",
+        "",
+    };
+
+    string main_menu_options_template[3] = {
+        "  1. Jugar           ",
+        "  2. Instrucciones   ",
+        "  3. Salir           ",
+    };
+
+    string main_menu_options[3] = {
+        "  1. Jugar           ",
+        "  2. Instrucciones   ",
+        "  3. Salir           ",
+    };
+
+    char input_user = ' '; 
+    int user_actual_option = 1;
+    while(input_user != '\0' or input_user != '\n' or input_user != 'e'){
+        // print the title
+        for (string title : title_header) {
+            centeredPrint(title);
+            cout << endl;
+        }
+
+        // restart the options
+        copy(begin(main_menu_options_template), 
+             end(main_menu_options_template), 
+             begin(main_menu_options)
+             );
+
+        // adjust the options to the actual options
+        int index_line = user_actual_option - 1;
+        int last_index_in_options = main_menu_options[index_line].length() - 1;
+        main_menu_options[index_line][0] = '>';
+        main_menu_options[index_line][last_index_in_options] = '<';
+
+        // print the menu options 
+        for (string options : main_menu_options) {
+            centeredPrint(options);
+            cout << endl;
+        }
+       
+        // get the user input 
+        cin >> input_user;
+
+        // move the cursor based on the input, w is up, s is down
+        if(input_user == 'w' or input_user == 'k'){
+            if(user_actual_option > 1){
+                user_actual_option -= 1;
+            }
+            else if(user_actual_option == 1){
+                user_actual_option = 3;
+            }
+        }
+        else if(input_user == 's' or input_user == 'j'){
+            if(user_actual_option < 3){
+                user_actual_option += 1;
+            }
+            else if(user_actual_option == 3){
+                user_actual_option = 1;
+            }
+        }
+        else if(input_user == '\0' or input_user == '\n' or input_user == 'e'){
+            break;
+        };
+
+        clearConsole();
+    }
+
+    return user_actual_option;
+}
+
+void printInstructions(){
+    string title_header[] = {
+        "-------------------",
+        "-MUERTOS Y HERIDOS-",
+        "-------------------",
+        "",
+        "",
+    };
+
+    string instructions_text[] = {
+        "Instrucciones:",
+        "",
+        "El juego consiste en adivinar un numero de 4 digitos",
+        "que no se repitan los digitos.",
+        "",
+        "El juego te dara pistas de cuantos muertos y heridos",
+        "tienes en cada turno.",
+        "",
+        "Un muerto es un digito que esta en la posicion correcta.",
+        "Un herido es un digito que esta en la posicion incorrecta.",
+        "",
+        "Tienes 10 intentos para adivinar el numero.",
+        "",
+        "Buena suerte!",
+        "",
+        "",
+        "Presione enter para volver al menu principal",
+    };
+}
+
+int main(){
+    // start the game
+    bool game_state = true;
+    while(game_state){
+        clearConsole();
+        int menu_user_option = mainMenu();
+        clearConsole();
     
+        // start the game
+        if(menu_user_option == 1){
+            
+        }
+        // show the instructions
+        else if(menu_user_option == 2){
+            
+        }
+        // exit the game
+        else if(menu_user_option == 3){
+            game_state = false;
+        }
+    }
+
     return 0;
 }
