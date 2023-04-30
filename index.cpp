@@ -317,23 +317,37 @@ void printInstructions(){
 
     string instructions_text[] = {
         "Instrucciones:",
-        "",
-        "El juego consiste en adivinar un numero de 4 digitos",
-        "que no se repitan los digitos.",
-        "",
-        "El juego te dara pistas de cuantos muertos y heridos",
-        "tienes en cada turno.",
-        "",
-        "Un muerto es un digito que esta en la posicion correcta.",
-        "Un herido es un digito que esta en la posicion incorrecta.",
-        "",
-        "Tienes 10 intentos para adivinar el numero.",
-        "",
-        "Buena suerte!",
-        "",
-        "",
-        "Presione enter para volver al menu principal",
+        "El juego consiste en adivinar un numero de 4 digitos distintos.",
+        "El jugador dispondrá de 7 intentos para adivinar el numero.    ",
+        "En cada intento el jugador ingresará un numero de 4 digitos,   ",
+        "y el juego le indicará cuantos muertos y cuantos heridos tiene.",
+        "Un muerto es un digito que esta en la posicion correcta.       ",
+        "Un herido es un digito que esta en la posicion incorrecta.     ",
+        "Si el jugador adivina el numero antes de los 7 intentos, gana. ",
+        "                                                               ",
+        "Ejemplo:                                                       ",
+        "Numero a adivinar: 1234                                        ",
+        "Intento 1: 5678                                                ",
+        "Resultado: 0 muertos y 0 heridos                               ",
+        "Intento 2: 1234                                                ",
+        "Resultado: !Ganaste¡                                           ",
+        "                                                               ",
+        "Presiona cualquier tecla para volver al menu principal         ",
     };
+
+    // print the title 
+    for (string title : title_header) {
+        centeredPrint(title);
+        cout << endl;
+    }
+
+    // print the instructions 
+    for (string instructions : instructions_text) {
+        centeredPrint(instructions);
+        cout << endl;
+    }
+
+    getch();
 }
 
 int main(){
@@ -350,7 +364,7 @@ int main(){
         }
         // show the instructions
         else if(menu_user_option == 2){
-            
+            printInstructions();
         }
         // exit the game
         else if(menu_user_option == 3){
