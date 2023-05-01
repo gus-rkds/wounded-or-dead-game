@@ -34,9 +34,8 @@ int randomNumberInt(int min, int max) {
     input: the range of the random number in int
     output: a random int between the two numbers
     */
-    
-    // set the random source
-    srand(time(NULL)); 
+
+    // the min susbstract the max for having the real cap after adding de min
     int randomInt = min + ( rand()%(max - min + 1) );
     return randomInt;
 }
@@ -48,10 +47,10 @@ int randomIntFourDiffDigit() {
     output: a random int of four digits having all digits diferent
     */
     
-    // set the random source 
-    int digits[4]; 
+    int digits[4];
+    digits[0] = randomNumberInt(1, 9); // the first digit can't be 0
 
-    for (int i = 0; i < 4; i++) {
+    for (int i = 1; i < 4; i++) {
         // generate a random digit bewteen 0 and 9
         int potentialDigit = randomNumberInt(0, 9);
 
@@ -678,7 +677,9 @@ void startGame(string number_of_game_str){
 }
 
 int main(){
+    // set random source
     srand(time(NULL)); 
+
     // start the game
     string number_of_game_str = to_string( randomIntFourDiffDigit() );
     bool game_running = true;
