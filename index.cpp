@@ -2,6 +2,8 @@
 #include <ctime>
 #include <conio.h>
 #include <windows.h>
+#include <string>
+#include <unordered_map>
 
 #define KEY_UP 72
 #define KEY_DOWN 80
@@ -148,6 +150,38 @@ bool validRoundInput(string turn_input){
     return true;
 }
 
+int getDead(string random, string num){
+    int dead = 0;
+    for (int i = 0; i < random.length(); i++){
+        if (random[i] == num[i]){
+            dead++;
+        }
+    }
+    return dead;
+}
+
+
+int getWounded(const string random, const string num) {
+  // funtion that compares two strings that represent numbers and returnsvthe number of equal 
+  // digits in different positions
+  int wounded = 0; // counter for numbers in different position
+  unordered_map<char, int> map; // map that saves the digits
+
+  for (int i = 0; i < num.size(); i++) { // iterate second string
+    map [num [i]] = i; // insert a digit in the map
+  }
+
+  for (int i = 0; i < random.size(); i++) { // iterate first string
+    auto currentChar = map.find (random [i]); // search current char in the map
+    if (currentChar != map.end ()) { // if it appears in the map
+      int j = currentChar->second; // get position of the current char in the second string
+      if (i != j) { // if the position is different
+        wounded++; // increase counter
+      }
+    }
+  }
+  return wounded; // get counter
+}
 // Visual, UI Code -------------------------------------------------------->
 // ------------------------------------------------------------------------>
 // ------------------------------------------------------------------------>
@@ -610,11 +644,12 @@ void startGame(string number_of_game_str){
 
     for(int actual_round = 1; actual_round <= number_of_rounds; actual_round++){
         // round template
-        cout << left_margin_str << "Turno " << actual_round << ": ";
+        cout << round_margin << "Turno " << actual_round << ": ";
 
         // get the user input
         while(validRoundInput(user_input) == false){
             cin >> user_input;
+            cout << round_margin << "Ingrese un número correcto: ";
         }
         
         // check if the user input is the same as the number of the game
@@ -627,9 +662,9 @@ void startGame(string number_of_game_str){
             cout << round_margin << "El numero es: " << number_of_game_str << "\n";
             actual_round -= 1;
         }
-        else{
+        else{ 
             // get the number of deads and wounded
-            // int deads = getDeads(user_input, number_of_game_str);
+            // int deads = getDead(user_input, number_of_game_str);
             // int wounded = getWounded(user_input, number_of_game_str);
             char deads = '9';
             char wounded = '9';
