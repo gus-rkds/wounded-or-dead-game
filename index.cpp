@@ -10,7 +10,6 @@
 #define KEY_LEFT 75
 #define KEY_RIGHT 77
 
-srand(time(NULL)); 
 
 using namespace std;
 
@@ -679,8 +678,9 @@ void startGame(string number_of_game_str){
 }
 
 int main(){
+    srand(time(NULL)); 
     // start the game
-    string number_of_game_str = to_string( randomintfourdiffdigit() );
+    string number_of_game_str = to_string( randomIntFourDiffDigit() );
     bool game_running = true;
     while(game_running){
         clearConsole();
