@@ -305,7 +305,7 @@ void loseScreen(){
 
 }
 
-int winScreen(){
+void winScreen(){
   // Y
 
   writey(18, 6, 6);
@@ -415,7 +415,7 @@ void centeredPrint(string text, int widthLine = 80){
     */ 
     
     // calculate the number of empty spaces 
-    int emptySpacesNumber = widthLine - text.length();
+    int emptySpacesNumber = widthline - text.length();
     // calculate the number of empty spaces in each side of the text
     int emptySpacesLeft = floor(emptySpacesNumber / 2);
 
@@ -442,15 +442,21 @@ void printTitle(){
 
     string title_header  = "---------------------";
     string title_muertos = "-      MUERTOS      -";
-    string title_y       = "-          Y        -";
+    string title_y       = "-         Y         -";
     string title_heridos = "-      HERIDOS      -";
     string title_footer  = "---------------------";
+    // Getting the margin, 80 is the width of the console
+    int left_margin = floor( (80 - title_header.length()) / 2 );
+    string margin = "";
+    for(int i = 1; i <= left_margin; i++){
+        margin += " ";
+    }
 
-    centeredPrint(title_header);
-    centeredPrint(title_muertos);
-    centeredPrint(title_y);
-    centeredPrint(title_heridos);
-    centeredPrint(title_footer);
+    cout << margin << title_header << "\n";
+    cout << margin << title_muertos << "\n";
+    cout << margin << title_y << "\n";
+    cout << margin << title_heridos << "\n";
+    cout << margin << title_footer << "\n";
     cout << "\n\n";
 }
 
@@ -464,6 +470,15 @@ int mainMenu(){
     char input_user = ' '; 
     int user_actual_option = 1;
 
+    // get the options margin string
+    string options_lenght = "  1. Jugar           ";
+    int left_margin_options = floor( (80 - options_lenght.length() ) / 2 );
+    string margin_options = "";
+    for(int i = 1; i <= left_margin_options; i++){
+        margin_options += " ";
+    }
+
+
     while(input_user != 'e' or input_user != '\r' or input_user != '\n'){
         // print the title
         printTitle();
@@ -472,7 +487,7 @@ int mainMenu(){
         string play_option_text1 =         "  1. Jugar           ";
         string instructions_option_text2 = "  2. Instrucciones   ";
         string exit_option_text3 =         "  3. Salir           ";
-        int last_index_options = play_option_text.length() - 1;
+        int last_index_options = play_option_text1.length() - 1;
 
         // highlight the actual option 
         if(user_actual_option == 1){
@@ -489,9 +504,9 @@ int mainMenu(){
         }
 
         // print the menu options 
-        centeredPrint(play_option_text1);
-        centeredPrint(instructions_option_text2);
-        centeredPrint(exit_option_text3);
+        cout << margin_options << play_option_text1 << "\n";
+        cout << margin_options << instructions_option_text2 << "\n";
+        cout << margin_options << exit_option_text3 << "\n";
        
         // get the user input 
         input_user = getch();
@@ -599,7 +614,7 @@ void startGame(){
 
     for(int actual_round = 1; actual_round <= number_of_rounds; actual_round++){
         // actualize the template and print it
-        round_template[0][turno_index] = to_string(actual_round);
+        // round_template[0][turno_index] = to_string(actual_round);
         printWithLeftMargin(round_template[0], left_margin);
 
         // get the user input
