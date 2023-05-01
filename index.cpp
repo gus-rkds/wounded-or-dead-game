@@ -583,10 +583,10 @@ void startGame(){
         "Muertos: M        Heridos: H", 
         "                            ",
     };
-    int turno_index = 7;
+    int turno_index = 6;
     int muerto_index = 9;
     int herido_index = 27;
-    int left_margin = (round_template[2].length() - 80) / 2;
+    int left_margin = floor( (round_template[2].length() - 80) / 2);
 
     // variables to store the user input 
     string user_input = " ";
@@ -597,13 +597,12 @@ void startGame(){
 
     for(int actual_round = 1; actual_round <= number_of_rounds; actual_round++){
         // actualize the template and print it
-        round_template[0][turno_index] = actual_round;
+        round_template[0][turno_index] = to_string(actual_round);
         printWithLeftMargin(round_template[0], left_margin);
 
         // get the user input
         while(validRoundInput(user_input) == false){
             cin >> user_input;
-            cin.ignore();
         }
         
         // check if the user input is the same as the number of the game
