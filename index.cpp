@@ -588,7 +588,7 @@ void printInstructions(){
     getch();
 }
 
-void startGame(){
+void startGame(string number_of_game_str){
     /*
     Function that starts the game 
     input: none
@@ -597,12 +597,9 @@ void startGame(){
 
     // basic variables of the game
     int number_of_rounds = 7;
-    string number_of_game_str = to_string( randomIntFourDiffDigit() );
-
     string round_template[] = {
         "Turno T: ",
         "Muertos: M        Heridos: H", 
-        "                            ",
     };
     int turno_index = 6;
     int muerto_index = 9;
@@ -658,6 +655,7 @@ void startGame(){
 
 int main(){
     // start the game
+    string number_of_game_str = to_string( randomintfourdiffdigit() );
     bool game_running = true;
     while(game_running){
         clearConsole();
@@ -666,7 +664,7 @@ int main(){
     
         // start the game
         if(menu_user_option == 1){
-            startGame();
+            startGame(number_of_game_str);
         }
         // show the instructions
         else if(menu_user_option == 2){
