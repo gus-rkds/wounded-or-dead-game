@@ -592,8 +592,10 @@ void startGame(){
     string user_input = " ";
     bool user_win = false;
 
-    // print the title 
+    // print the title and introduction 
     printTitle();
+    printWithLeftMargin("Ingrese un numero de 4 digitos distintos", left_margin);
+    cout << "\n";
 
     for(int actual_round = 1; actual_round <= number_of_rounds; actual_round++){
         // actualize the template and print it
@@ -625,11 +627,11 @@ void startGame(){
             // actualize the death and wounded template and print 
             round_template[1][muerto_index] = deads;
             round_template[1][herido_index] = wounded;
-            centeredPrint(round_template[1]);
+            printWithLeftMargin(round_template[1], left_margin);
             // print the number of deads and wounded
         }
 
-        centeredPrint(round_template[2]);
+        cout << "\n";
     }
 }
 
