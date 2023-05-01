@@ -1,6 +1,7 @@
 #include <iostream>
 #include <ctime>
 #include <conio.h>
+#include <windows.h>
 
 #define KEY_UP 72
 #define KEY_DOWN 80
@@ -151,7 +152,220 @@ bool validRoundInput(string turn_input){
 // ------------------------------------------------------------------------>
 // ------------------------------------------------------------------------>
 
+// Win and Lose Screens --------------------------------------------------->
+int tiempo = 5;
+void gotoxy(short a, short b) // Custom gotoxy() function
+{
+  COORD coordinates; // Data type of co-ordinates
+  coordinates.X = a; // Assign value to X- Co-ordinate
+  coordinates.Y = b; // Assign value to Y Co-ordinate
 
+  SetConsoleCursorPosition(
+      GetStdHandle(STD_OUTPUT_HANDLE), coordinates);
+}
+
+void writey(int x, int y, int cantidady)
+{
+
+  int j = y;
+
+  while (j <= (cantidady + y))
+  {
+
+    gotoxy(x, j);
+    cout << "RBRBR";
+
+    j++;
+
+    Sleep(tiempo);
+  }
+}
+
+void writey2(int x, int y, int cantidady, int iteracion)
+{
+
+  int i = x;
+
+  int j = y;
+
+  while (j <= (cantidady + y))
+  {
+
+    gotoxy(i, j);
+    cout << "RBRBR";
+
+    j++;
+
+    i = i + iteracion;
+
+    Sleep(tiempo);
+  }
+}
+
+void writex(int x, int y, int cantidadx)
+{
+
+  int i = x;
+
+  while (i <= (cantidadx + x))
+  {
+
+    gotoxy(i, y);
+    cout << "R";
+
+    gotoxy(i, y + 1);
+    cout << "B";
+
+    i++;
+
+    Sleep(tiempo);
+  }
+}
+
+void loseScreen(){
+  // Y
+
+  writey(18, 6, 6);
+
+  writey2(24, 2, 5, -1);
+
+  writey2(12, 2, 5, 1);
+
+  // o
+
+  writey(34, 4, 6);
+
+  writey(49, 4, 6);
+
+  writex(40, 2, 7);
+
+  writex(40, 11, 7);
+
+  writey2(36, 3, 1, -1);
+
+  writey2(47, 3, 1, 1);
+
+  writey2(36, 10, 1, 1);
+
+  writey2(47, 10, 1, -1);
+  
+  // u
+
+  writey(62, 2, 8);
+  writey(77, 2, 8);
+  writex(68, 11, 7);
+  writey2(64, 10, 1, 1);
+  writey2(75, 10, 1, -1);  
+
+  // L
+  writey(12, 15, 10);
+  writex(16, 24, 7);
+  
+  // o
+
+  writey(29, 17, 6);
+
+  writey(44, 17, 6);
+
+  writex(35, 15, 7);
+
+  writex(35, 24, 7);
+
+  writey2(31, 16, 1, -1);
+
+  writey2(42, 16, 1, 1);
+
+  writey2(31, 23, 1, 1);
+
+  writey2(42, 23, 1, -1);
+  
+  // S
+  
+  writey(56, 15, 5);
+  
+  writey(64, 19, 6);
+  
+  writex(60, 15, 7);
+  
+  writex(60, 19, 7);
+
+  writex(56, 24, 7);
+  
+  // E
+  
+  writey(76, 15, 10);
+  
+  writex(80, 15, 7);
+  
+  writex(80, 19, 7);
+
+  writex(80, 24, 7);
+
+  getch();
+
+}
+
+int winScreen(){
+  // Y
+
+  writey(18, 6, 6);
+
+  writey2(24, 2, 5, -1);
+
+  writey2(12, 2, 5, 1);
+
+  // o
+
+  writey(34, 4, 6);
+
+  writey(49, 4, 6);
+
+  writex(40, 2, 7);
+
+  writex(40, 11, 7);
+
+  writey2(36, 3, 1, -1);
+
+  writey2(47, 3, 1, 1);
+
+  writey2(36, 10, 1, 1);
+
+  writey2(47, 10, 1, -1);
+  
+  // u
+
+  writey(62, 2, 8);
+  writey(77, 2, 8);
+  writex(68, 11, 7);
+  writey2(64, 10, 1, 1);
+  writey2(75, 10, 1, -1);  
+  
+  // w
+  
+  // W
+
+  writey2(12, 16, 9, 1);
+  writey2(28, 18, 7, -1);
+  writey2(29, 18, 7, 1);
+  writey2(45, 16, 9, -1);
+
+  // i
+  writey(54, 16, 9);
+  
+  // n
+
+  writey(64, 16, 9);
+  writey2(66, 16, 9, 1);
+  writey(76, 16, 9);
+
+  getch();
+}
+
+
+
+// ------------------------------------------------------------------------>
+// ------------------------------------------------------------------------>
+// ------------------------------------------------------------------------>
 
 void clearConsole() {
     /*
@@ -193,7 +407,7 @@ int stopInputNumberState(string informative_text, int last_number_to_input) {
     return input_int;
 }
 
-void centeredPrint(string text, char emptySpaces = ' ', int widthLine = 80){
+void centeredPrint(string text, int widthLine = 80){
     /*
     Function that prints a text centered in a line 
     input: the text to print, the character to fill the empty spaces, the width of the line 
@@ -204,21 +418,17 @@ void centeredPrint(string text, char emptySpaces = ' ', int widthLine = 80){
     int emptySpacesNumber = widthLine - text.length();
     // calculate the number of empty spaces in each side of the text
     int emptySpacesLeft = floor(emptySpacesNumber / 2);
-    int emptySpacesRight = emptySpacesNumber - emptySpacesLeft;
 
     // print the text
     for (int i = 1; i <= emptySpacesLeft; i++) {
-        cout << emptySpaces;
+        cout << " ";
     }
-    cout << text;
-    for (int i = 1; i <= emptySpacesRight; i++) {
-        cout << emptySpaces;
-    }
+    cout << text << "\n";
 }
 
-void printWithLeftMargin(string text_to_print, int left_margin, char char_to_put = ' '){
+void printWithLeftMargin(string text_to_print, int left_margin){
     for(int i = 1; i <= left_margin; i++){
-        cout << char_to_put;
+        cout << " ";
     }
     cout << text_to_print;
 }
@@ -234,14 +444,13 @@ void printTitle(){
         "---------------------",
         "- MUERTOS Y HERIDOS -",
         "---------------------",
-        "",
-        "",
     };
 
     for (string line : title_header) {
         centeredPrint(line);
-        cout << endl;
     }
+
+    cout << "\n\n";
 }
 
 int mainMenu(){
@@ -285,7 +494,7 @@ int mainMenu(){
         // print the menu options 
         for (string options : main_menu_options) {
             centeredPrint(options);
-            cout << endl;
+            cout << "\n";
         }
        
         // get the user input 
@@ -293,7 +502,6 @@ int mainMenu(){
 
         // move the cursor based on the input, w is up, s is down
         if(input_user == 'w' or input_user == 'k' or
-            input_user == 'W' or input_user == 'K' or
             input_user == KEY_UP){
 
             if(user_actual_option > 1){
@@ -304,7 +512,6 @@ int mainMenu(){
             }
         }
         else if(input_user == 's' or input_user == 'j'
-            or input_user == 'S' or input_user == 'J'
             or input_user == KEY_DOWN){
 
             if(user_actual_option < 3){
@@ -359,7 +566,6 @@ void printInstructions(){
     // print the instructions 
     for (string instructions : instructions_text) {
         centeredPrint(instructions);
-        cout << endl;
     }
 
     getch();
@@ -411,7 +617,7 @@ void startGame(){
         }
         else if(user_input == "0000"){
             // run backdoor
-            cout << "El numero es: " << number_of_game_str << endl;
+            cout << "El numero es: " << number_of_game_str << "\n";
             actual_round -= 1;
         }
         else{
