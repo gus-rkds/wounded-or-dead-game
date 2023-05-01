@@ -8,6 +8,8 @@
 #define KEY_LEFT 75
 #define KEY_RIGHT 77
 
+srand(time(NULL)); 
+
 using namespace std;
 
 int floor(float num) {
@@ -46,7 +48,6 @@ int randomIntFourDiffDigit() {
     */
     
     // set the random source 
-    srand(time(NULL)); 
     int digits[4]; 
 
     for (int i = 0; i < 4; i++) {
@@ -426,13 +427,6 @@ void centeredPrint(string text, int widthLine = 80){
     cout << text << "\n";
 }
 
-void printWithLeftMargin(string text_to_print, int left_margin){
-    for(int i = 1; i <= left_margin; i++){
-        cout << " ";
-    }
-    cout << text_to_print;
-}
-
 void printTitle(){
     /*
     Function that prints the title of the game 
@@ -597,14 +591,12 @@ void startGame(string number_of_game_str){
 
     // basic variables of the game
     int number_of_rounds = 7;
-    string round_template[] = {
-        "Turno T: ",
-        "Muertos: M        Heridos: H", 
-    };
-    int turno_index = 6;
-    int muerto_index = 9;
-    int herido_index = 27;
-    int left_margin = floor( (round_template[2].length() - 80) / 2);
+    string welcome_str1 = "¡Bienvenido al juego de los muertos y heridos! ";
+    string welcome_str2 = "El numero a adivinar es de 4 digitos distintos.";
+    // margin is = floor( (80 - welcome_str1.length() ) / 2) = 17
+    string welcome_margin = "                 ";
+    // the same as above but based on: "Muertos: 0        Heridos: 0"
+    string round_margin   = "                          ";
 
     // variables to store the user input 
     string user_input = " ";
@@ -612,13 +604,13 @@ void startGame(string number_of_game_str){
 
     // print the title and introduction 
     printTitle();
-    printWithLeftMargin("Ingrese un numero de 4 digitos distintos", left_margin);
+    cout << welcome_margin << welcome_str1 << "\n";
+    cout << welcome_margin << welcome_str2 << "\n";
     cout << "\n";
 
     for(int actual_round = 1; actual_round <= number_of_rounds; actual_round++){
-        // actualize the template and print it
-        // round_template[0][turno_index] = to_string(actual_round);
-        printWithLeftMargin(round_template[0], left_margin);
+        // round template
+        cout << left_margin_str << "Turno " << actual_round << ": ";
 
         // get the user input
         while(validRoundInput(user_input) == false){
@@ -632,7 +624,7 @@ void startGame(string number_of_game_str){
         }
         else if(user_input == "0000"){
             // run backdoor
-            cout << "El numero es: " << number_of_game_str << "\n";
+            cout << round_margin << "El numero es: " << number_of_game_str << "\n";
             actual_round -= 1;
         }
         else{
@@ -642,11 +634,9 @@ void startGame(string number_of_game_str){
             char deads = '9';
             char wounded = '9';
 
-            // actualize the death and wounded template and print 
-            round_template[1][muerto_index] = deads;
-            round_template[1][herido_index] = wounded;
-            printWithLeftMargin(round_template[1], left_margin);
             // print the number of deads and wounded
+            cout << round_margin << "Muertos: " << deads 
+                << "        Heridos: " << wounded << "\n";
         }
 
         cout << "\n";
