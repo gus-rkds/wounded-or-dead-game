@@ -415,7 +415,7 @@ void centeredPrint(string text, int widthLine = 80){
     */ 
     
     // calculate the number of empty spaces 
-    int emptySpacesNumber = widthline - text.length();
+    int emptySpacesNumber = widthLine - text.length();
     // calculate the number of empty spaces in each side of the text
     int emptySpacesLeft = floor(emptySpacesNumber / 2);
 
@@ -446,11 +446,14 @@ void printTitle(){
     string title_heridos = "-      HERIDOS      -";
     string title_footer  = "---------------------";
     // Getting the margin, 80 is the width of the console
-    int left_margin = floor( (80 - title_header.length()) / 2 );
-    string margin = "";
-    for(int i = 1; i <= left_margin; i++){
-        margin += " ";
-    }
+    // int left_margin = floor( (80 - title_header.length()) / 2 );
+    // string margin = "";
+    // for(int i = 1; i <= left_margin; i++){
+    //     margin += " ";
+    // }
+
+    // based in the upper calculation, margin is 29 blank spaces
+    string margin = "                             ";
 
     cout << margin << title_header << "\n";
     cout << margin << title_muertos << "\n";
@@ -471,12 +474,15 @@ int mainMenu(){
     int user_actual_option = 1;
 
     // get the options margin string
-    string options_lenght = "  1. Jugar           ";
-    int left_margin_options = floor( (80 - options_lenght.length() ) / 2 );
-    string margin_options = "";
-    for(int i = 1; i <= left_margin_options; i++){
-        margin_options += " ";
-    }
+    // string options_lenght = "  1. Jugar           ";
+    // int left_margin_options = floor( (80 - options_lenght.length() ) / 2 );
+    // string margin_options = "";
+    // for(int i = 1; i <= left_margin_options; i++){
+    //     margin_options += " ";
+    // }
+
+    // based in the upper calculation, margin is 29 blank spaces
+    string margin_options = "                             ";
 
 
     while(input_user != 'e' or input_user != '\r' or input_user != '\n'){
