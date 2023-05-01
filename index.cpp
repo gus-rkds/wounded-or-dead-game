@@ -440,16 +440,17 @@ void printTitle(){
     output: print the title of the game
     */
 
-    string title_header[] = { 
-        "---------------------",
-        "- MUERTOS Y HERIDOS -",
-        "---------------------",
-    };
+    string title_header  = "---------------------";
+    string title_muertos = "-      MUERTOS      -";
+    string title_y       = "-          Y        -";
+    string title_heridos = "-      HERIDOS      -";
+    string title_footer  = "---------------------";
 
-    for (string line : title_header) {
-        centeredPrint(line);
-    }
-
+    centeredPrint(title_header);
+    centeredPrint(title_muertos);
+    centeredPrint(title_y);
+    centeredPrint(title_heridos);
+    centeredPrint(title_footer);
     cout << "\n\n";
 }
 
@@ -460,18 +461,6 @@ int mainMenu(){
     output: print the main menu of the game and return the option selected by the user
     */
 
-    string main_menu_options_template[] = {
-        "  1. Jugar           ",
-        "  2. Instrucciones   ",
-        "  3. Salir           ",
-    };
-
-    string main_menu_options[] = {
-        "  1. Jugar           ",
-        "  2. Instrucciones   ",
-        "  3. Salir           ",
-    };
-
     char input_user = ' '; 
     int user_actual_option = 1;
 
@@ -479,30 +468,37 @@ int mainMenu(){
         // print the title
         printTitle();
 
-        // restart the options
-        copy(begin(main_menu_options_template), 
-             end(main_menu_options_template), 
-             begin(main_menu_options)
-             );
+        // set the menu options 
+        string play_option_text1 =         "  1. Jugar           ";
+        string instructions_option_text2 = "  2. Instrucciones   ";
+        string exit_option_text3 =         "  3. Salir           ";
+        int last_index_options = play_option_text.length() - 1;
 
-        // adjust the options to the actual options
-        int index_line = user_actual_option - 1;
-        int last_index_in_options = main_menu_options[index_line].length() - 1;
-        main_menu_options[index_line][0] = '>';
-        main_menu_options[index_line][last_index_in_options] = '<';
+        // highlight the actual option 
+        if(user_actual_option == 1){
+            play_option_text1[0] = '>';
+            play_option_text1[last_index_options] = '<';
+        }
+        else if(user_actual_option == 2){
+            instructions_option_text2[0] = '>';
+            instructions_option_text2[last_index_options] = '<';
+        }
+        else if(user_actual_option == 3){
+            exit_option_text3[0] = '>';
+            exit_option_text3[last_index_options] = '<';
+        }
 
         // print the menu options 
-        for (string options : main_menu_options) {
-            centeredPrint(options);
-            cout << "\n";
-        }
+        centeredPrint(play_option_text1);
+        centeredPrint(instructions_option_text2);
+        centeredPrint(exit_option_text3);
        
         // get the user input 
         input_user = getch();
 
         // move the cursor based on the input, w is up, s is down
-        if(input_user == 'w' or input_user == 'k' or
-            input_user == KEY_UP){
+        if(input_user == KEY_UP or input_user == 'k' or
+            input_user == 'w'){
 
             if(user_actual_option > 1){
                 user_actual_option -= 1;
@@ -511,8 +507,8 @@ int mainMenu(){
                 user_actual_option = 3;
             }
         }
-        else if(input_user == 's' or input_user == 'j'
-            or input_user == KEY_DOWN){
+        else if(input_user == KEY_DOWN or input_user == 'j'
+            or input_user == 's'){
 
             if(user_actual_option < 3){
                 user_actual_option += 1;
@@ -521,7 +517,7 @@ int mainMenu(){
                 user_actual_option = 1;
             }
         }
-        else if(input_user == 'e' or input_user == '\r' or input_user == '\n'){
+        else if(input_user == '\r' or input_user == 'e' or input_user == '\n'){
             break;
         };
 
