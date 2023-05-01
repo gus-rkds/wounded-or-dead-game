@@ -411,52 +411,20 @@ void clearConsole() {
     system("cls");
 }
 
-int stopInputNumberState(string informative_text, int last_number_to_input) {
+string getPaddingToCenter(int text_width, int line_width = 80){
     /*
-    Function that waits for the user to input a number in a range of numbers 
-    (range is from 1 to lastNumberToInput)
-    input: the informative text to show to the user, the last number
-    output: the number inputed by the user
+    Function that returns a string with the padding to center the text
+    input: text_width, line_width
+    output: string with the padding
     */
 
-    string input = "";
-    int input_int = 0;
-    bool invalid_input = true;
-    // request input until the input is in the range of numbers
-    cout << informative_text;
-    while(invalid_input){
-        cin >> input;
-
-        if( isStringOfInt(input) ){
-            input_int = stoi(input);
-
-            if( input_int >= 1 and input_int <= last_number_to_input ){
-                invalid_input = false;
-            }
-        }
+    int left_margin = floor( (line_width - text_width) / 2 );
+    string margin = "";
+    for(int i = 1; i <= left_margin; i++){
+        margin += " ";
     }
 
-    cin.ignore();
-    return input_int;
-}
-
-void centeredPrint(string text, int widthLine = 80){
-    /*
-    Function that prints a text centered in a line 
-    input: the text to print, the character to fill the empty spaces, the width of the line 
-    output: print the text centered in a line
-    */ 
-    
-    // calculate the number of empty spaces 
-    int emptySpacesNumber = widthLine - text.length();
-    // calculate the number of empty spaces in each side of the text
-    int emptySpacesLeft = floor(emptySpacesNumber / 2);
-
-    // print the text
-    for (int i = 1; i <= emptySpacesLeft; i++) {
-        cout << " ";
-    }
-    cout << text << "\n";
+    return margin;
 }
 
 void printTitle(){
@@ -467,25 +435,18 @@ void printTitle(){
     */
 
     string title_header  = "---------------------";
-    string title_muertos = "-      MUERTOS      -";
-    string title_y       = "-         Y         -";
+    string title_muertos = "-     MUERTOS Y     -";
     string title_heridos = "-      HERIDOS      -";
     string title_footer  = "---------------------";
-    // Getting the margin, 80 is the width of the console
-    // int left_margin = floor( (80 - title_header.length()) / 2 );
-    // string margin = "";
-    // for(int i = 1; i <= left_margin; i++){
-    //     margin += " ";
-    // }
 
-    // based in the upper calculation, margin is 29 blank spaces
-    string margin = "                             ";
+    // 29 and 30 spaces, because the title has 21 characters
+    string leftMargin  = "*                            ";
+    string rightMargin = "                             *";
 
-    cout << margin << title_header << "\n";
-    cout << margin << title_muertos << "\n";
-    cout << margin << title_y << "\n";
-    cout << margin << title_heridos << "\n";
-    cout << margin << title_footer << "\n";
+    cout << leftMargin << title_header << rightMargin << "\n";
+    cout << leftMargin << title_muertos << rightMargin << "\n";
+    cout << leftMargin << title_heridos << rightMargin << "\n";
+    cout << leftMargin << title_footer << rightMargin << "\n";
     cout << "\n\n";
 }
 
@@ -499,19 +460,12 @@ int mainMenu(){
     char input_user = ' '; 
     int user_actual_option = 1;
 
-    // get the options margin string
-    // string options_lenght = "  1. Jugar           ";
-    // int left_margin_options = floor( (80 - options_lenght.length() ) / 2 );
-    // string margin_options = "";
-    // for(int i = 1; i <= left_margin_options; i++){
-    //     margin_options += " ";
-    // }
-
-    // based in the upper calculation, margin is 29 blank spaces
+    // margin of 29 blank spaces, the same as title
     string margin_options = "                             ";
 
 
-    while(input_user != 'e' or input_user != '\r' or input_user != '\n'){
+    bool user_not_has_selected_option = true;
+    while(user_not_has_selected_option){
         // print the title
         printTitle();
 
@@ -565,8 +519,21 @@ int mainMenu(){
             }
         }
         else if(input_user == '\r' or input_user == 'e' or input_user == '\n'){
-            break;
+            user_not_has_selected_option = false;
         };
+
+        if(input_user == '1'){
+            user_actual_option = 1;
+            user_not_has_selected_option = false;
+        }
+        else if(input_user == '2'){
+            user_actual_option = 2;
+            user_not_has_selected_option = false;
+        }
+        else if(input_user == '3'){
+            user_actual_option = 3;
+            user_not_has_selected_option = false;
+        }
 
         clearConsole();
     }
@@ -602,13 +569,15 @@ void printInstructions(){
         "                                                               ",
         "   ¡Presiona cualquier tecla para volver al menu principal!    ",
     };
+    // Get padding to center instructions
+    string paddingInstructions = getPaddingToCenter(instructions_text[0].length() );
 
     // print the title 
     printTitle();
 
     // print the instructions 
     for (string instructions : instructions_text) {
-        centeredPrint(instructions);
+       cout << paddingInstructions << instructions << "\n"; 
     }
 
     getch();
@@ -623,12 +592,13 @@ void startGame(string number_of_game_str){
 
     // basic variables of the game
     int number_of_rounds = 7;
-    string welcome_str1 = "¡Bienvenido al juego de los muertos y heridos! ";
-    string welcome_str2 = "El numero a adivinar es de 4 digitos distintos.";
-    // margin is = floor( (80 - welcome_str1.length() ) / 2) = 17
-    string welcome_margin = "                 ";
-    // the same as above but based on: "Muertos: 0        Heridos: 0"
-    string round_margin   = "                          ";
+
+    string welcome_text[] = {
+        "¡Bienvenido al juego de los muertos y heridos!  ",
+        "El numero a adivinar es de 4 digitos distintos. ",
+    };
+    string welcome_margin = getPaddingToCenter(welcome_text[0].length() );
+    string round_margin   = getPaddingToCenter(26);
 
     // variables to store the user input 
     string user_input = " ";
