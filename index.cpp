@@ -639,9 +639,9 @@ bool startGame(){
         }
         else if(user_input == "0000"){
             // run backdoor
-            cout << rng_game_number_str;
+            cout << "                                  " <<rng_game_number_str;
             Sleep(1000);
-            cout << "\b \r           \r";
+            cout << "\b \r                                                                        \r";
             actual_round -= 1;
         }
         else{ 
