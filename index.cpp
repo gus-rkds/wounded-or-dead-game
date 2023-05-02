@@ -600,11 +600,11 @@ void startGame(){
     string rng_game_number_str = to_string( randomIntFourDiffDigit());
 
     string welcome_text[] = {
-        "¡Bienvenido al juego de los muertos y heridos!  ",
-        "El numero a adivinar es de 4 digitos distintos. ",
+        " ¡Bienvenido al juego de los muertos y heridos!",
+        " El numero a adivinar es de 4 digitos distintos. ",
     };
-    string welcome_margin = getPaddingToCenter(welcome_text[0].length() );
-    string round_margin   = getPaddingToCenter(26);
+    string welcome_margin = getPaddingToCenter(welcome_text[0].length() + 2 );
+    string round_margin   = getPaddingToCenter(30);
 
     // variables to store the user input 
     string user_input = " ";
@@ -631,7 +631,6 @@ void startGame(){
             cin >> user_input;
             cin.ignore();
         }
-        cout << round_margin << "Ingresó un número válido: " << user_input << "\n";
         
         // check if the user input is the same as the number of the game
         if(user_input == rng_game_number_str){
