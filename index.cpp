@@ -656,7 +656,7 @@ bool startGame(){
         cout << "\n";
     }
 
-    if(user win == true){
+    if(user_win == true){
         cout << round_margin << "¡Ganaste!" << '\n';
         Sleep(2000);
     }
