@@ -518,7 +518,8 @@ int mainMenu(){
                 user_actual_option = 1;
             }
         }
-        else if(input_user == '\r' or input_user == 'e' or input_user == '\n'){
+        else if(input_user == '\r' or input_user == 'e'
+                or input_user == '\n' or input_user == KEY_RIGHT){
             user_not_has_selected_option = false;
         };
 
@@ -583,7 +584,7 @@ void printInstructions(){
     getch();
 }
 
-void startGame(string number_of_game_str){
+void startGame(){
     /*
     Function that starts the game 
     input: none
@@ -592,6 +593,7 @@ void startGame(string number_of_game_str){
 
     // basic variables of the game
     int number_of_rounds = 7;
+    string rng_game_number_str = to_string( randomIntFourDiffDigit());
 
     string welcome_text[] = {
         "¡Bienvenido al juego de los muertos y heridos!  ",
@@ -606,10 +608,13 @@ void startGame(string number_of_game_str){
 
     // print the title and introduction 
     printTitle();
-    cout << welcome_margin << welcome_str1 << "\n";
-    cout << welcome_margin << welcome_str2 << "\n";
+    for (string welcome : welcome_text) {
+       cout << welcome_margin << welcome << "\n"; 
+    }
     cout << "\n";
 
+
+    // start the game
     for(int actual_round = 1; actual_round <= number_of_rounds; actual_round++){
         // round template
         cout << round_margin << "Turno " << actual_round << ": ";
@@ -621,19 +626,19 @@ void startGame(string number_of_game_str){
         }
         
         // check if the user input is the same as the number of the game
-        if(user_input == number_of_game_str){
+        if(user_input == rng_game_number_str){
             user_win = true;
             break;
         }
         else if(user_input == "0000"){
             // run backdoor
-            cout << round_margin << "El numero es: " << number_of_game_str << "\n";
+            cout << round_margin << "El numero es: " << rng_game_number_str << "\n";
             actual_round -= 1;
         }
         else{ 
             // get the number of deads and wounded
-            // int deads = getDead(user_input, number_of_game_str);
-            // int wounded = getWounded(user_input, number_of_game_str);
+            // int deads = getDead(user_input, rng_game_number_str);
+            // int wounded = getWounded(user_input, rng_game_number_str);
             char deads = '9';
             char wounded = '9';
 
@@ -651,7 +656,6 @@ int main(){
     srand(time(NULL)); 
 
     // start the game
-    string number_of_game_str = to_string( randomIntFourDiffDigit() );
     bool game_running = true;
     while(game_running){
         clearConsole();
@@ -660,7 +664,7 @@ int main(){
     
         // start the game
         if(menu_user_option == 1){
-            startGame(number_of_game_str);
+            startGame();
         }
         // show the instructions
         else if(menu_user_option == 2){
