@@ -139,6 +139,9 @@ bool validRoundInput(string turn_input){
     }
 
     // check if the input is a number of 4 digits and all digits are diferent
+    if (input_int == 0000){
+    return true;
+    }
     if (input_int < 1000 or input_int> 9999){
         return false;
     }
@@ -621,16 +624,19 @@ void startGame(){
         cout << round_margin << "Turno " << actual_round << ": ";
 
         // get the user input
+        cin >> user_input;
+        cin.ignore();
         while(validRoundInput(user_input) == false){
-            cin >> user_input;
             cout << round_margin << "Número Incorrecto: ";
+            cin >> user_input;
+            cin.ignore();
         }
-        cout << "\n Ingresó un número válido: " << user_input;
-        getch();
+        cout << round_margin << "Ingresó un número válido: " << user_input << "\n";
         
         // check if the user input is the same as the number of the game
         if(user_input == rng_game_number_str){
             user_win = true;
+            cout << "\n" << round_margin << "!Ganaste¡\n";
             break;
         }
         else if(user_input == "0000"){
@@ -642,8 +648,8 @@ void startGame(){
             // get the number of deads and wounded
             // int deads = getDead(user_input, rng_game_number_str);
             // int wounded = getWounded(user_input, rng_game_number_str);
-            char deads = '9';
-            char wounded = '9';
+            int deads = getDead(user_input, rng_game_number_str);
+            int wounded = getWounded(user_input, rng_game_number_str);
 
             // print the number of deads and wounded
             cout << round_margin << "Muertos: " << deads 
@@ -660,7 +666,7 @@ int main(){
 
     // set language
 
-    setlocale(LC_ALL, "spanish");
+    setlocale(LC_ALL, "SPANISH");
 
     // start the game
     bool game_running = true;
