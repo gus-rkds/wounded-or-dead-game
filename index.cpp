@@ -655,12 +655,16 @@ bool startGame(){
 
         cout << "\n";
     }
-    if(user_win == false){
+
+    if(user win == true){
+        cout << round_margin << "¡Ganaste!" << '\n';
+        Sleep(2000);
+    }
+    else if(user_win == false){
         cout << round_margin << "Perdiste, el número era " 
             << rng_game_number_str << '\n';
 
-        cout << round_margin << "Presione cualquier tecla para continuar" << '\n';
-        getch();
+        Sleep(2000);
     }
     
     return user_win;
