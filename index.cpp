@@ -588,11 +588,11 @@ void printInstructions(){
     getch();
 }
 
-void startGame(){
+bool startGame(){
     /*
     Function that starts the game 
     input: none
-    output: start the game
+    output: start the game and return if the user won or not
     */
 
     // basic variables of the game
@@ -619,7 +619,7 @@ void startGame(){
 
 
     // start the game
-    for(int actual_round = 1; actual_round <= number_of_rounds; actual_round++){
+    for(int actual_round = 1; (actual_round <= number_of_rounds) and (!user_win); actual_round++){
         // round template
         cout << round_margin << "Turno " << actual_round << ": ";
 
@@ -635,8 +635,6 @@ void startGame(){
         // check if the user input is the same as the number of the game
         if(user_input == rng_game_number_str){
             user_win = true;
-            cout << "\n" << round_margin << "!Ganaste¡\n";
-            break;
         }
         else if(user_input == "0000"){
             // run backdoor
@@ -647,8 +645,6 @@ void startGame(){
         }
         else{ 
             // get the number of deads and wounded
-            // int deads = getDead(user_input, rng_game_number_str);
-            // int wounded = getWounded(user_input, rng_game_number_str);
             int deads = getDead(user_input, rng_game_number_str);
             int wounded = getWounded(user_input, rng_game_number_str);
 
@@ -659,6 +655,8 @@ void startGame(){
 
         cout << "\n";
     }
+    
+    return user_win;
 }
 
 int main(){
@@ -678,7 +676,14 @@ int main(){
     
         // start the game
         if(menu_user_option == 1){
-            startGame();
+            bool user_has_won = startGame();
+            if(user_has_won){
+                winScreen();
+            }
+            else{
+                loseScreen();
+            }
+            // game_running = repeatScreen();
         }
         // show the instructions
         else if(menu_user_option == 2){
