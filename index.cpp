@@ -638,9 +638,10 @@ bool startGame(){
         }
         else if(user_input == "0000"){
             // run backdoor
-            cout << " (" << rng_game_number_str << ")";
+            cout << round_margin << "El número es (" << rng_game_number_str << ")";
             Sleep(1000);
-            cout << "\r\r\r\r\r\r \n";
+            cout << "\r\r\r\r\r\r";
+            cout << "\n";
             actual_round -= 1;
         }
         else{ 
