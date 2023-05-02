@@ -655,6 +655,13 @@ bool startGame(){
 
         cout << "\n";
     }
+    if(user_win == false){
+        cout << round_margin << "Perdiste, el número era " 
+            << rng_game_number_str << '\n';
+
+        cout << round_margin << "Presione cualquier tecla para continuar" << '\n';
+        getch();
+    }
     
     return user_win;
 }
@@ -677,12 +684,14 @@ int main(){
         // start the game
         if(menu_user_option == 1){
             bool user_has_won = startGame();
+            clearConsole();
             if(user_has_won){
                 winScreen();
             }
             else{
                 loseScreen();
             }
+            clearConsole();
             // game_running = repeatScreen();
         }
         // show the instructions
