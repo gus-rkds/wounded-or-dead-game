@@ -4,6 +4,7 @@
 #include <windows.h>
 #include <string>
 #include <unordered_map>
+#include <locale.h>
 
 #define KEY_UP 72
 #define KEY_DOWN 80
@@ -656,6 +657,10 @@ void startGame(){
 int main(){
     // set random source
     srand(time(NULL)); 
+
+    // set language
+
+    setlocale(LC_ALL, "spanish");
 
     // start the game
     bool game_running = true;
