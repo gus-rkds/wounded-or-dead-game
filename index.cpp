@@ -622,8 +622,10 @@ void startGame(){
         // get the user input
         while(validRoundInput(user_input) == false){
             cin >> user_input;
-            cout << round_margin << "Ingrese un número correcto: ";
+            cout << round_margin << "Número Incorrecto: ";
         }
+        cout << "\n Ingresó un número válido: " << user_input;
+        getch();
         
         // check if the user input is the same as the number of the game
         if(user_input == rng_game_number_str){
