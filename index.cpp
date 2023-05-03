@@ -644,6 +644,7 @@ void printInstructions(){
         "                                                               ",
         "   ¡Presiona cualquier tecla para volver al menu principal!    ",
     };
+    instructions_text_lenght = sizeof(instructions_text)/sizeof(instructions_text[0]);
     // Get padding to center instructions
     string paddingInstructions = getPaddingToCenter(instructions_text[0].length() );
 
@@ -651,9 +652,20 @@ void printInstructions(){
     printTitle();
 
     // print the instructions 
-    for (string instructions : instructions_text) {
-        cout << paddingInstructions << instructions << "\n"; 
+    // print the instructions title in yellow(6) and return to white(7)
+    SetConsoleTextAttribute(output_handle, 6);
+    cout << paddingInstructions << instructions_text[0] << "\n";
+    SetConsoleTextAttribute(output_handle, 7);
+
+    for (int i = 1; i < (instructions_text_lenght - 1); i++) {
+        cout << paddingInstructions << instructions_text[i] << "\n";
     }
+
+    // print the last line in yellow(6) and return to white(7)
+    SetConsoleTextAttribute(output_handle, 6);
+    cout << paddingInstructions << instructions_text[instructions_text_lenght - 1] << "\n";
+    SetConsoleTextAttribute(output_handle, 7);
+
 
     getch();
 }
@@ -722,10 +734,22 @@ string startGame(){
             // get the number of deads and wounded
             int deads = getDead(user_input, rng_game_number_str);
             int wounded = getWounded(user_input, rng_game_number_str);
+            // red(4), white(7)
+            int report_text_color = 4;
+            if(dead == 3 or wounded == 3){
+                // yellow(6)
+                report_text_color = 6;
+            }
+            else if(wounded == 4){
+                // green(2)
+                report_text_color = 2;
+            }
 
             // print the number of deads and wounded
+            SetConsoleTextAttribute(output_handle, report_text_color);
             cout << round_margin << "Muertos: " << deads 
                 << "        Heridos: " << wounded << "\n";
+            SetConsoleTextAttribute(output_handle, 7);
         }
 
         cout << "\n";
@@ -764,8 +788,9 @@ int main(){
             string game_result = startGame();
             clearConsole();
 
+            // Colors: 2 = green, 4 = red, 7 = white
             if(game_result == "win"){
-                SetConsoleTextAttribute(output_handle, 6)
+                SetConsoleTextAttribute(output_handle, 2)
                 winScreen();
                 SetConsoleTextAttribute(output_handle, 7);
             }
