@@ -126,9 +126,17 @@ bool validRoundInput(string turn_input){
     /*
     Function that verifies all the inputs turns from the user  
     (check if the input is [int, 4 digits, all digits diferent] )
+    (or if input is "0000", "stop", "exit", "quit")
     input: the string of the user input for the turn 
     output: a boolean value that indicates if the input is valid
     */
+
+    // check if the input is "salir", "stop", "exit"
+    if (turn_input == "quit" or turn_input == "stop" 
+        or turn_input == "exit"){
+
+        return true;
+    }
 
     // check if the input is a string of int
     int input_int = 0;
@@ -141,7 +149,7 @@ bool validRoundInput(string turn_input){
 
     // check if the input is a number of 4 digits and all digits are diferent
     if (input_int == 0000){
-    return true;
+        return true;
     }
     if (input_int < 1000 or input_int> 9999){
         return false;
@@ -589,7 +597,7 @@ void printInstructions(){
         "Intento 2: 1234                                                ",
         "Resultado: !Ganaste¡                                           ",
         "                                                               ",
-        "                                                               ",
+        "Comandos Especiales: stop, exit, quit, 0000 (backdoor)         ",
         "                                                               ",
         "   ¡Presiona cualquier tecla para volver al menu principal!    ",
     };
@@ -627,7 +635,7 @@ bool startGame(){
 
     // variables to store the user input 
     string user_input = " ";
-    bool user_win = false;
+    string game_state = "not won";
 
     // print the title and introduction 
     printTitle();
@@ -638,7 +646,7 @@ bool startGame(){
 
 
     // start the game
-    for(int actual_round = 1; (actual_round <= number_of_rounds) and (!user_win); actual_round++){
+    for(int actual_round = 1; (actual_round <= number_of_rounds) and (game_state == "not won"); actual_round++){
         // round template
         cout << round_margin << "Turno " << actual_round << ": ";
 
@@ -653,7 +661,8 @@ bool startGame(){
         
         // check if the user input is the same as the number of the game
         if(user_input == rng_game_number_str){
-            user_win = true;
+            // user has won
+            game_state = "win";
         }
         else if(user_input == "0000"){
             // run backdoor
@@ -661,6 +670,10 @@ bool startGame(){
             Sleep(1000);
             cout << "\b \r                                                                        \r";
             actual_round -= 1;
+        }
+        else if(user_input == "exit" or user_input == "quit" or user_input == "stop"){
+            // exit the game 
+            game_state = "exit";
         }
         else{ 
             // get the number of deads and wounded
@@ -675,18 +688,18 @@ bool startGame(){
         cout << "\n";
     }
 
-    if(user_win == true){
+    if(game_state == "win"){
         cout << round_margin << "¡Ganaste!" << '\n';
         Sleep(1000);
     }
-    else if(user_win == false){
+    else if(game_state == "not won"){
         cout << round_margin << "Perdiste, el número era " 
             << rng_game_number_str << '\n';
 
         Sleep(2000);
     }
     
-    return user_win;
+    return game_state;
 }
 
 int main(){
@@ -694,7 +707,6 @@ int main(){
     srand(time(NULL)); 
 
     // set language
-
     setlocale(LC_ALL, "SPANISH");
 
     // start the game
@@ -706,16 +718,16 @@ int main(){
     
         // start the game
         if(menu_user_option == 1){
-            bool user_has_won = startGame();
+            string game_result = startGame();
             clearConsole();
-            if(user_has_won){
+
+            if(game_result == "win"){
                 winScreen();
             }
-            else{
+            else if(game_result == "not won")){
                 loseScreen();
             }
             clearConsole();
-            // game_running = repeatScreen();
         }
         // show the instructions
         else if(menu_user_option == 2){
