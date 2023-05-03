@@ -133,7 +133,7 @@ bool validRoundInput(string turn_input){
 
     // check if the input is "salir", "stop", "exit"
     if (turn_input == "quit" or turn_input == "stop" 
-        or turn_input == "exit"){
+        or turn_input == "exit" or turn_input == "0000"){
 
         return true;
     }
@@ -148,9 +148,6 @@ bool validRoundInput(string turn_input){
     }
 
     // check if the input is a number of 4 digits and all digits are diferent
-    if (input_int == 0000){
-        return true;
-    }
     if (input_int < 1000 or input_int> 9999){
         return false;
     }
