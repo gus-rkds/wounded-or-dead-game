@@ -344,57 +344,75 @@ void loseScreen(){
 }
 
 void winScreen(){
+  
   // Y
 
   writey(18, 6, 6);
-
+  Beep(130, 100);
   writey2(24, 2, 5, -1);
-
+  Beep(262, 100);
   writey2(12, 2, 5, 1);
+  Beep(330, 100);
+
 
   // o
 
   writey(34, 4, 6);
-
+  Beep(392, 100);
   writey(49, 4, 6);
-
+  Beep(523, 100);
   writex(40, 2, 7);
-
+  Beep(660, 100);
   writex(40, 11, 7);
-
+  Beep(784, 300);
   writey2(36, 3, 1, -1);
-
+  Beep(660, 300);
   writey2(47, 3, 1, 1);
-
+  Beep(146, 100);
   writey2(36, 10, 1, 1);
-
+  Beep(262, 100);
   writey2(47, 10, 1, -1);
+  Beep(311, 100);  
   
   // u
 
   writey(62, 2, 8);
+  Beep(415, 100);
   writey(77, 2, 8);
+  Beep(523, 100);
   writex(68, 11, 7);
+  Beep(622, 100);
   writey2(64, 10, 1, 1);
-  writey2(75, 10, 1, -1);  
-  
-  // w
+  Beep(831, 300);
+  writey2(75, 10, 1, -1);
+  Beep(622, 300);   
   
   // W
 
   writey2(12, 16, 9, 1);
+  Beep(155, 100);
   writey2(28, 18, 7, -1);
+  Beep(294, 100);
   writey2(29, 18, 7, 1);
+  Beep(349, 100);
   writey2(45, 16, 9, -1);
-
+  Beep(466, 100);
+      
   // i
   writey(54, 16, 9);
-  
+  Beep(588, 100);
+
   // n
 
   writey(64, 16, 9);
+  Beep(699, 100);
   writey2(66, 16, 9, 1);
+  Beep(933, 300);
   writey(76, 16, 9);
+  Beep(933, 100);
+  Beep(933, 100);
+  Beep(933, 100);
+  Beep(1047, 400);
 
   getch();
 }
