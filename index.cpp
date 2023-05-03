@@ -5,6 +5,7 @@
 #include <string>
 #include <map>
 #include <locale.h>
+#include <fstream>
 
 
 #define KEY_UP 72
@@ -16,6 +17,18 @@
 using namespace std;
 // Global Scope output handle 
 HANDLE output_handle = GetStdHandle(STD_OUTPUT_HANDLE);
+
+void saveScore(const string& player, int score, string round_margin) {
+  ofstream outfile("scores.txt", ios::app); // open file for appending
+  if (outfile.is_open()) {
+    outfile << player << " " << score << endl; // write player and score to file
+    outfile.close(); // close file
+    cout << round_margin <<"Puntación guardada!\n";
+  }
+  else {
+    cerr << "Disculpa, fue imposible guardar tu puntuación.\n";
+  }
+}
 
 int floor(float num) {
     /*
@@ -681,6 +694,8 @@ string startGame(){
     */
 
     // basic variables of the game
+    string player;
+    int score = 5;
     int number_of_rounds = 7;
     string rng_game_number_str = to_string( randomIntFourDiffDigit());
 
@@ -701,13 +716,10 @@ string startGame(){
        cout << welcome_margin << welcome << "\n"; 
     }
     cout << "\n";
-
-
     // start the game
     for(int actual_round = 1; (actual_round <= number_of_rounds) and (game_state == "not won"); actual_round++){
         // round template
         cout << round_margin << "Turno " << actual_round << ": ";
-
         // get the user input
         cin >> user_input;
         cin.ignore();
@@ -765,7 +777,10 @@ string startGame(){
     if(game_state == "win"){
         // green(2), white(7)
         SetConsoleTextAttribute(output_handle, 2);
-        cout << round_margin << "¡Ganaste!" << '\n';
+        cout << round_margin << "¡Ganaste! Ingresa un nombre, tu puntuación sera registrada" << '\n';
+        cout << round_margin << "Jugador: ";
+        cin >> player;
+        saveScore(player, score, round_margin); 
         SetConsoleTextAttribute(output_handle, 7);
 
         Sleep(1000);
