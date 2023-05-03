@@ -786,7 +786,7 @@ int main(){
     srand(time(NULL)); 
 
     // set language
-    setlocale(LC_ALL, "SPANISH");
+    setlocale(LC_ALL, "es_ES.UTF-8");
 
     // start the game
     bool game_running = true;
