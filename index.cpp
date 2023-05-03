@@ -562,7 +562,10 @@ int mainMenu(){
             }
         }
         else if(input_user == '\r' or input_user == 'e'
-                or input_user == '\n' or input_user == KEY_RIGHT){
+                or input_user == '\n' or input_user == KEY_RIGHT
+                or input_user == 'd' or input_user == 'l'
+                or input_user == ' '){
+
             user_not_has_selected_option = false;
         };
 
