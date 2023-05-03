@@ -645,7 +645,7 @@ void printInstructions(){
         "                                                               ",
         "   ¡Presiona cualquier tecla para volver al menu principal!    ",
     };
-    instructions_text_lenght = sizeof(instructions_text)/sizeof(instructions_text[0]);
+    int instructions_text_lenght = sizeof(instructions_text)/sizeof(instructions_text[0]);
     // Get padding to center instructions
     string paddingInstructions = getPaddingToCenter(instructions_text[0].length() );
 
@@ -740,7 +740,7 @@ string startGame(){
             // light_red(12), 
             int report_text_color = 12;
 
-            if(dead == 3 or wounded == 3){
+            if(deads == 3 or wounded == 3){
                 // light_yellow(14)
                 report_text_color = 14;
             }
@@ -802,7 +802,7 @@ int main(){
 
             // Colors: 2 = green, 4 = red, 7 = white
             if(game_result == "win"){
-                SetConsoleTextAttribute(output_handle, 2)
+                SetConsoleTextAttribute(output_handle, 2);
                 winScreen();
                 SetConsoleTextAttribute(output_handle, 7);
             }
