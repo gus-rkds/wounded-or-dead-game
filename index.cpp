@@ -647,7 +647,7 @@ void printInstructions(){
     };
   
     // Get padding to center instructions
-    string paddingInstructions = getPaddingToCenter(instructions_text[0].length() );
+    string paddingInstructions = getPaddingToCenter(instructions_text[1].length() - 6);
 
     // print the title 
     printTitle();
