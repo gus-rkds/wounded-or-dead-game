@@ -3,7 +3,7 @@
 #include <conio.h>
 #include <windows.h>
 #include <string>
-#include <unordered_map>
+#include <map>
 #include <locale.h>
 
 
@@ -170,20 +170,19 @@ int getDead(string random, string num){
     return dead;
 }
 
-
 int getWounded(const string random, const string num) {
-  // funtion that compares two strings that represent numbers and returnsvthe number of equal 
+  // function that compares two strings that represent numbers and returns the number of equal
   // digits in different positions
   int wounded = 0; // counter for numbers in different position
-  unordered_map<char, int> map; // map that saves the digits
+  map<char, int> m; // map that saves the digits
 
   for (int i = 0; i < num.size(); i++) { // iterate second string
-    map [num [i]] = i; // insert a digit in the map
+    m[num[i]] = i; // insert a digit in the map
   }
 
   for (int i = 0; i < random.size(); i++) { // iterate first string
-    auto currentChar = map.find (random [i]); // search current char in the map
-    if (currentChar != map.end ()) { // if it appears in the map
+    auto currentChar = m.find(random[i]); // search current char in the map
+    if (currentChar != m.end()) { // if it appears in the map
       int j = currentChar->second; // get position of the current char in the second string
       if (i != j) { // if the position is different
         wounded++; // increase counter
@@ -192,6 +191,8 @@ int getWounded(const string random, const string num) {
   }
   return wounded; // get counter
 }
+
+
 // Visual, UI Code -------------------------------------------------------->
 // ------------------------------------------------------------------------>
 // ------------------------------------------------------------------------>
