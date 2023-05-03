@@ -539,8 +539,9 @@ int mainMenu(){
         }
 
         // print the menu options 
+        // 12 = light_red
         if(user_actual_option == 1){
-            SetConsoleTextAttribute(output_handle, 4);
+            SetConsoleTextAttribute(output_handle, 12);
             cout << margin_options << play_option_text1 << "\n";
             SetConsoleTextAttribute(output_handle, 7);
 
@@ -550,7 +551,7 @@ int mainMenu(){
         else if(user_actual_option == 2){
             cout << margin_options << play_option_text1 << "\n";
 
-            SetConsoleTextAttribute(output_handle, 4);
+            SetConsoleTextAttribute(output_handle, 12);
             cout << margin_options << instructions_option_text2 << "\n";
             SetConsoleTextAttribute(output_handle, 7);
 
@@ -560,7 +561,7 @@ int mainMenu(){
             cout << margin_options << play_option_text1 << "\n";
             cout << margin_options << instructions_option_text2 << "\n";
 
-            SetConsoleTextAttribute(output_handle, 4);
+            SetConsoleTextAttribute(output_handle, 12);
             cout << margin_options << exit_option_text3 << "\n";
             SetConsoleTextAttribute(output_handle, 7);
         }
@@ -652,8 +653,8 @@ void printInstructions(){
     printTitle();
 
     // print the instructions 
-    // print the instructions title in yellow(6) and return to white(7)
-    SetConsoleTextAttribute(output_handle, 6);
+    // print the instructions title in light_yellow(14) and return to white(7)
+    SetConsoleTextAttribute(output_handle, 14);
     cout << paddingInstructions << instructions_text[0] << "\n";
     SetConsoleTextAttribute(output_handle, 7);
 
@@ -661,8 +662,8 @@ void printInstructions(){
         cout << paddingInstructions << instructions_text[i] << "\n";
     }
 
-    // print the last line in yellow(6) and return to white(7)
-    SetConsoleTextAttribute(output_handle, 6);
+    // print the last line in light_yellow(14) and return to white(7)
+    SetConsoleTextAttribute(output_handle, 14);
     cout << paddingInstructions << instructions_text[instructions_text_lenght - 1] << "\n";
     SetConsoleTextAttribute(output_handle, 7);
 
@@ -734,21 +735,25 @@ string startGame(){
             // get the number of deads and wounded
             int deads = getDead(user_input, rng_game_number_str);
             int wounded = getWounded(user_input, rng_game_number_str);
-            // red(4), white(7)
-            int report_text_color = 4;
+
+            // print the number of deads and wounded
+            // light_red(12), 
+            int report_text_color = 12;
+
             if(dead == 3 or wounded == 3){
-                // yellow(6)
-                report_text_color = 6;
+                // light_yellow(14)
+                report_text_color = 14;
             }
             else if(wounded == 4){
-                // green(2)
-                report_text_color = 2;
+                // light_green(10)
+                report_text_color = 10;
             }
 
             // print the number of deads and wounded
             SetConsoleTextAttribute(output_handle, report_text_color);
             cout << round_margin << "Muertos: " << deads 
                 << "        Heridos: " << wounded << "\n";
+            // return to white(7)
             SetConsoleTextAttribute(output_handle, 7);
         }
 
@@ -756,12 +761,19 @@ string startGame(){
     }
 
     if(game_state == "win"){
+        // green(2), white(7)
+        SetConsoleTextAttribute(output_handle, 2);
         cout << round_margin << "¡Ganaste!" << '\n';
+        SetConsoleTextAttribute(output_handle, 7);
+
         Sleep(1000);
     }
     else if(game_state == "not won"){
+        // red(4), white(7)
+        SetConsoleTextAttribute(output_handle, 4);
         cout << round_margin << "Perdiste, el número era " 
             << rng_game_number_str << '\n';
+        SetConsoleTextAttribute(output_handle, 7);
 
         Sleep(2000);
     }
