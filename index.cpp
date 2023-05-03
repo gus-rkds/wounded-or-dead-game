@@ -477,6 +477,9 @@ void printTitle(){
     output: print the title of the game
     */
 
+    // output handle to change the color of the text
+    HANDLE outputHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+
     string title_header  = "---------------------";
     string title_muertos = "-     MUERTOS Y     -";
     string title_heridos = "-      HERIDOS      -";
@@ -486,10 +489,15 @@ void printTitle(){
     string leftMargin  = "*                            ";
     string rightMargin = "                             *";
 
+    // 4 is the color red in the text 
+    SetConsoleTextAttribute(outputHandle, 4);
     cout << leftMargin << title_header << rightMargin << "\n";
     cout << leftMargin << title_muertos << rightMargin << "\n";
     cout << leftMargin << title_heridos << rightMargin << "\n";
     cout << leftMargin << title_footer << rightMargin << "\n";
+
+    // 7 is the color white in the text
+    SetConsoleTextAttribute(outputHandle, 7);
     cout << "\n\n";
 }
 
