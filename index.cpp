@@ -694,8 +694,6 @@ string startGame(){
     */
 
     // basic variables of the game
-    string player;
-    int score = 5;
     int number_of_rounds = 7;
     string rng_game_number_str = to_string( randomIntFourDiffDigit());
 
@@ -777,10 +775,6 @@ string startGame(){
     if(game_state == "win"){
         // green(2), white(7)
         SetConsoleTextAttribute(output_handle, 2);
-        cout << round_margin << "¡Ganaste! Ingresa un nombre, tu puntuación sera registrada" << '\n';
-        cout << round_margin << "Jugador: ";
-        cin >> player;
-        saveScore(player, score, round_margin); 
         SetConsoleTextAttribute(output_handle, 7);
 
         Sleep(1000);
@@ -805,6 +799,10 @@ int main(){
     // set language
     setlocale(LC_ALL, "es_ES.UTF-8");
 
+    // set console output handle
+    string player;
+    int score = 5;
+    string round_margin   = getPaddingToCenter(30);
     // start the game
     bool game_running = true;
     while(game_running){
@@ -815,11 +813,20 @@ int main(){
         // start the game
         if(menu_user_option == 1){
             string game_result = startGame();
+
+            if(game_result == "win"){
+                SetConsoleTextAttribute(output_handle, 2);
+                cout << round_margin << "¡Ganaste! Ingresa un nombre, tu puntuación sera registrada" << '\n';
+                cout << round_margin << "Jugador: ";
+                cin >> player;
+                saveScore(player, score, round_margin); 
+            }
+            
             clearConsole();
 
             // Colors: 2 = green, 4 = red, 7 = white
             if(game_result == "win"){
-                SetConsoleTextAttribute(output_handle, 2);
+
                 winScreen();
                 SetConsoleTextAttribute(output_handle, 7);
             }
