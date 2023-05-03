@@ -645,7 +645,7 @@ void printInstructions(){
         "                                                               ",
         "   ¡Presiona cualquier tecla para volver al menu principal!    ",
     };
-    int instructions_text_lenght = sizeof(instructions_text)/sizeof(instructions_text[0]);
+  
     // Get padding to center instructions
     string paddingInstructions = getPaddingToCenter(instructions_text[0].length() );
 
@@ -653,6 +653,7 @@ void printInstructions(){
     printTitle();
 
     // print the instructions 
+    int instructions_text_lenght = sizeof(instructions_text)/sizeof(instructions_text[0]);
     // print the instructions title in light_yellow(14) and return to white(7)
     SetConsoleTextAttribute(output_handle, 14);
     cout << paddingInstructions << instructions_text[0] << "\n";
