@@ -615,7 +615,7 @@ void printInstructions(){
     getch();
 }
 
-bool startGame(){
+string startGame(){
     /*
     Function that starts the game 
     input: none
@@ -724,7 +724,7 @@ int main(){
             if(game_result == "win"){
                 winScreen();
             }
-            else if(game_result == "not won")){
+            else if(game_result == "not won"){
                 loseScreen();
             }
             clearConsole();
