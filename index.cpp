@@ -478,7 +478,7 @@ void printTitle(){
     */
 
     // output handle to change the color of the text
-    HANDLE outputHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+    HANDLE output_handle = GetStdHandle(STD_OUTPUT_HANDLE);
 
     string title_header  = "---------------------";
     string title_muertos = "-     MUERTOS Y     -";
@@ -490,14 +490,14 @@ void printTitle(){
     string rightMargin = "                             *";
 
     // 4 is the color red in the text 
-    SetConsoleTextAttribute(outputHandle, 4);
+    SetConsoleTextAttribute(output_handle, 4);
     cout << leftMargin << title_header << rightMargin << "\n";
     cout << leftMargin << title_muertos << rightMargin << "\n";
     cout << leftMargin << title_heridos << rightMargin << "\n";
     cout << leftMargin << title_footer << rightMargin << "\n";
 
     // 7 is the color white in the text
-    SetConsoleTextAttribute(outputHandle, 7);
+    SetConsoleTextAttribute(output_handle, 7);
     cout << "\n\n";
 }
 
@@ -514,6 +514,8 @@ int mainMenu(){
     // margin of 29 blank spaces, the same as title
     string margin_options = "                             ";
 
+    // output handle to change the color of the text 
+    HANDLE output_handle = GetStdHandle(STD_OUTPUT_HANDLE);
 
     bool user_not_has_selected_option = true;
     while(user_not_has_selected_option){
@@ -541,9 +543,31 @@ int mainMenu(){
         }
 
         // print the menu options 
-        cout << margin_options << play_option_text1 << "\n";
-        cout << margin_options << instructions_option_text2 << "\n";
-        cout << margin_options << exit_option_text3 << "\n";
+        if(user_actual_option == 1){
+            SetConsoleTextAttribute(output_handle, 4);
+            cout << margin_options << play_option_text1 << "\n";
+            SetConsoleTextAttribute(output_handle, 7);
+
+            cout << margin_options << instructions_option_text2 << "\n";
+            cout << margin_options << exit_option_text3 << "\n";
+        }
+        else if(user_actual_option == 2){
+            cout << margin_options << play_option_text1 << "\n";
+
+            SetConsoleTextAttribute(output_handle, 4);
+            cout << margin_options << instructions_option_text2 << "\n";
+            SetConsoleTextAttribute(output_handle, 7);
+
+            cout << margin_options << exit_option_text3 << "\n";
+        }
+        else if(user_actual_option == 3){
+            cout << margin_options << play_option_text1 << "\n";
+            cout << margin_options << instructions_option_text2 << "\n";
+
+            SetConsoleTextAttribute(output_handle, 4);
+            cout << margin_options << exit_option_text3 << "\n";
+            SetConsoleTextAttribute(output_handle, 7);
+        }
        
         // get the user input 
         input_user = getch();
