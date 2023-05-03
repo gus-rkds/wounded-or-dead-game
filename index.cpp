@@ -14,6 +14,8 @@
 
 
 using namespace std;
+// Global Scope output handle 
+HANDLE output_handle = GetStdHandle(STD_OUTPUT_HANDLE);
 
 int floor(float num) {
     /*
@@ -477,9 +479,6 @@ void printTitle(){
     output: print the title of the game
     */
 
-    // output handle to change the color of the text
-    HANDLE output_handle = GetStdHandle(STD_OUTPUT_HANDLE);
-
     string title_header  = "---------------------";
     string title_muertos = "-     MUERTOS Y     -";
     string title_heridos = "-      HERIDOS      -";
@@ -513,9 +512,6 @@ int mainMenu(){
 
     // margin of 29 blank spaces, the same as title
     string margin_options = "                             ";
-
-    // output handle to change the color of the text 
-    HANDLE output_handle = GetStdHandle(STD_OUTPUT_HANDLE);
 
     bool user_not_has_selected_option = true;
     while(user_not_has_selected_option){
@@ -638,7 +634,7 @@ void printInstructions(){
         "Si el jugador adivina el numero antes de los 7 intentos, gana. ",
         "                                                               ",
         "Ejemplo:                                                       ",
-        "Numero a adivinar: 1234                                        ",
+        "Número a adivinar: 1234                                        ",
         "Intento 1: 5678                                                ",
         "Resultado: 0 muertos y 0 heridos                               ",
         "Intento 2: 1234                                                ",
@@ -656,7 +652,7 @@ void printInstructions(){
 
     // print the instructions 
     for (string instructions : instructions_text) {
-       cout << paddingInstructions << instructions << "\n"; 
+        cout << paddingInstructions << instructions << "\n"; 
     }
 
     getch();
@@ -769,10 +765,14 @@ int main(){
             clearConsole();
 
             if(game_result == "win"){
+                SetConsoleTextAttribute(output_handle, 6)
                 winScreen();
+                SetConsoleTextAttribute(output_handle, 7);
             }
             else if(game_result == "not won"){
+                SetConsoleTextAttribute(output_handle, 4);
                 loseScreen();
+                SetConsoleTextAttribute(output_handle, 7);
             }
             clearConsole();
         }
