@@ -80,14 +80,14 @@ int randomIntFourDiffDigit() {
 
     for (int i = 1; i < 4; i++) {
         // generate a random digit bewteen 0 and 9
-        int potentialDigit = randomNumberInt(0, 9);
+        int potentialDigit = randomNumberInt(1, 9);
 
         // check if the digit was already generated
         for (int j = 0; j < i; j++) {
             if (potentialDigit == digits[j]) { 
                 // if the digits was already generated, generate another digit
                 // and start the loop again
-                potentialDigit = randomNumberInt(0, 9);
+                potentialDigit = randomNumberInt(1, 9);
                 j = -1; 
             }
         }
