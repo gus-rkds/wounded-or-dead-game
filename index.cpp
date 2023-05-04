@@ -561,7 +561,7 @@ int mainMenu(){
         string play_option_text1 =         "  1. Jugar           ";
         string instructions_option_text2 = "  2. Instrucciones   ";
         string exit_option_text3 =         "  4. Salir           ";
-        string leaderboard_option_text4 =  "  3. Tabla de puntaje";
+        string leaderboard_option_text4 =  "  3. Ranking         ";
         int last_index_options = play_option_text1.length() - 1;
         int options_amount = 4;
 
