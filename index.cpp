@@ -748,7 +748,6 @@ map<string, string> startGame(){
         // round template
         cout << round_margin;
         displayHearts( 8 - actual_round);
-        cout << endl;
         SetConsoleTextAttribute(output_handle, 7);
         cout << round_margin << "Turno " << actual_round << ": ";
         // get the user input
