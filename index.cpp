@@ -286,46 +286,49 @@ void loseScreen(){
   // Y
 
   writey(18, 6, 6);
-  Beep(392, 100);
+Beep(523, 150);
+
 
   writey2(24, 2, 5, -1);
-    Beep(329, 100);
-  writey2(12, 2, 5, 1);
-    Beep(311, 100);
+      Beep(494, 150);
 
+  writey2(12, 2, 5, 1);
+
+    Beep(466, 150);
   // o
 
   writey(34, 4, 6);
-Beep(293, 100);
+    Beep(440, 250);
 
   writey(49, 4, 6);
-Beep(261, 200);
+    Beep(392, 250);
 
   writex(40, 2, 7);
+      Beep(349, 150);
   writex(40, 11, 7);
-    Beep(466, 100);
+    Beep(329, 150);
   writey2(36, 3, 1, -1);
-    Beep(369, 100);
+
   writey2(47, 3, 1, 1);
-    Beep(349, 100);
+    Beep(293, 150);
   writey2(36, 10, 1, 1);
-    Beep(311, 100);
+    Beep(261, 150);
   writey2(47, 10, 1, -1);
   
   // u
 
   writey(62, 2, 8);
-  Beep(293, 200);
+Beep(329, 150); // E4 negr
   writey(77, 2, 8);
   writex(68, 11, 7);
-    Beep(261, 300);
+Beep(311, 150); // Eb4 negra
   writey2(64, 10, 1, 1);
-      Beep(392, 100); // G4 negra
+  
   writey2(75, 10, 1, -1);  
-
+    Beep(293, 150); // D4 negra
   // L
   writey(12, 15, 10);
-    Beep(329, 100); // E4 negra
+    Beep(329, 150); // E4 negra
   writex(16, 24, 7);
   
   // o
@@ -333,39 +336,39 @@ Beep(261, 200);
   writey(29, 17, 6);
 Beep(311, 100); // Eb4 negra
   writey(44, 17, 6);
-    Beep(293, 100); // D4 negra
+    Beep(293, 150); // D4 negra
   writex(35, 15, 7);
-    Beep(261, 200); // C4 blanca
+    Beep(261, 150); // C4 blanca
   writex(35, 24, 7);
-    Beep(466, 100); // Bb4 negra
+    Beep(466, 150); // Bb4 negra
   writey2(31, 16, 1, -1);
-    Beep(369, 100); // Gb4 negra
+    Beep(369, 150); // Gb4 negra
   writey2(42, 16, 1, 1);
-    Beep(349, 100); // F4 negra
+    Beep(349, 150); // F4 negra
   writey2(31, 23, 1, 1);
-    Beep(311, 100); // Eb4 negra
+    Beep(311, 150); // Eb4 negra
   writey2(42, 23, 1, -1);
   
   // S
   
   writey(56, 15, 5);
-    Beep(293, 200); // D4 blanca  
+    Beep(293, 150); // D4 blanca  
   writey(64, 19, 6);
-    Beep(261, 300); // C4 redonda  
+    Beep(261, 250); // C4 redonda  
   writex(60, 15, 7);
-      Beep(392, 100); // G4 negra
+      Beep(392, 150); // G4 negra
   writex(60, 19, 7);
-    Beep(329, 100); // E4 negra
+    Beep(329, 150); // E4 negra
   writex(56, 24, 7);
   
   // E
   
   writey(76, 15, 10);
-    Beep(311, 100); // Eb4 negra  
+    Beep(311, 150); // Eb4 negra  
   writex(80, 15, 7);
-    Beep(293, 100); // D4 negra  
+    Beep(293, 150); // D4 negra  
   writex(80, 19, 7);
-    Beep(261, 200); // C4 blanca
+    Beep(261, 250); // C4 blanca
   writex(80, 24, 7);
 
     Beep(466, 500); // Bb4 negra
