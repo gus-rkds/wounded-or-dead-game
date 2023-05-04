@@ -830,7 +830,7 @@ map<string, string> startGame(){
 int main(){
     // resize console
     HANDLE wHnd = GetStdHandle(STD_OUTPUT_HANDLE);
-    SMALL_RECT windowSize = {0, 0, 79, 30};
+    SMALL_RECT windowSize = {0, 0, 79, 50};
     SetConsoleWindowInfo(wHnd, 1, &windowSize);
     // set random source
     srand(time(NULL)); 
