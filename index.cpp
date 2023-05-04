@@ -575,12 +575,12 @@ int mainMenu(){
             instructions_option_text2[last_index_options] = '<';
         }
         else if(user_actual_option == 3){
-            exit_option_text3[0] = '>';
-            exit_option_text3[last_index_options] = '<';
-        }
-        else if(user_actual_option == 4){
             leaderboard_option_text4[0] = '>';
             leaderboard_option_text4[last_index_options] = '<';
+        }
+        else if(user_actual_option == 4){
+            exit_option_text3[0] = '>';
+            exit_option_text3[last_index_options] = '<';
         }
 
         // print the menu options 
