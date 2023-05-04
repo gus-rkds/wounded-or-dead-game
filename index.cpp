@@ -35,7 +35,7 @@ void displayScores() {
   if (infile.is_open()) {
     string line;
     while (getline(infile, line)) {
-      cout << line << endl;
+      cout << "    " << line << endl;
     }
     infile.close();
   }
@@ -560,8 +560,10 @@ int mainMenu(){
         // set the menu options 
         string play_option_text1 =         "  1. Jugar           ";
         string instructions_option_text2 = "  2. Instrucciones   ";
-        string exit_option_text3 =         "  3. Salir           ";
+        string exit_option_text3 =         "  4. Salir           ";
+        string leaderboard_option_text4 =  "  3. Ranking         ";
         int last_index_options = play_option_text1.length() - 1;
+        int options_amount = 4;
 
         // highlight the actual option 
         if(user_actual_option == 1){
@@ -573,6 +575,10 @@ int mainMenu(){
             instructions_option_text2[last_index_options] = '<';
         }
         else if(user_actual_option == 3){
+            leaderboard_option_text4[0] = '>';
+            leaderboard_option_text4[last_index_options] = '<';
+        }
+        else if(user_actual_option == 4){
             exit_option_text3[0] = '>';
             exit_option_text3[last_index_options] = '<';
         }
@@ -585,6 +591,7 @@ int mainMenu(){
             SetConsoleTextAttribute(output_handle, 7);
 
             cout << margin_options << instructions_option_text2 << "\n";
+            cout << margin_options << leaderboard_option_text4 << "\n";
             cout << margin_options << exit_option_text3 << "\n";
         }
         else if(user_actual_option == 2){
@@ -594,11 +601,23 @@ int mainMenu(){
             cout << margin_options << instructions_option_text2 << "\n";
             SetConsoleTextAttribute(output_handle, 7);
 
+            cout << margin_options << leaderboard_option_text4 << "\n";
             cout << margin_options << exit_option_text3 << "\n";
         }
         else if(user_actual_option == 3){
             cout << margin_options << play_option_text1 << "\n";
             cout << margin_options << instructions_option_text2 << "\n";
+
+            SetConsoleTextAttribute(output_handle, 12);
+            cout << margin_options << leaderboard_option_text4 << "\n";
+            SetConsoleTextAttribute(output_handle, 7);
+
+            cout << margin_options << exit_option_text3 << "\n";
+        }
+        else if(user_actual_option == 4){
+            cout << margin_options << play_option_text1 << "\n";
+            cout << margin_options << instructions_option_text2 << "\n";
+            cout << margin_options << leaderboard_option_text4 << "\n";
 
             SetConsoleTextAttribute(output_handle, 12);
             cout << margin_options << exit_option_text3 << "\n";
@@ -616,16 +635,16 @@ int mainMenu(){
                 user_actual_option -= 1;
             }
             else if(user_actual_option == 1){
-                user_actual_option = 3;
+                user_actual_option = options_amount;
             }
         }
         else if(input_user == KEY_DOWN or input_user == 'j'
             or input_user == 's'){
 
-            if(user_actual_option < 3){
+            if(user_actual_option < options_amount){
                 user_actual_option += 1;
             }
-            else if(user_actual_option == 3){
+            else if(user_actual_option == options_amount){
                 user_actual_option = 1;
             }
         }
@@ -647,6 +666,10 @@ int mainMenu(){
         }
         else if(input_user == '3'){
             user_actual_option = 3;
+            user_not_has_selected_option = false;
+        }
+        else if(input_user == '4'){
+            user_actual_option = 4;
             user_not_has_selected_option = false;
         }
 
@@ -873,6 +896,7 @@ int main(){
             	
                 SMALL_RECT windowSize = {0, 0, 100, 30};
                 SetConsoleWindowInfo(wHnd, 1, &windowSize);            	
+
                 SetConsoleTextAttribute(output_handle, 4);
                 loseScreen();
                 SetConsoleTextAttribute(output_handle, 7);
@@ -884,8 +908,13 @@ int main(){
             // show the instructions and wait for the user press key to continue
             printInstructions();
         }
-        // exit the game
+        // show leaderboard 
         else if(menu_user_option == 3){
+            // show the leaderboard and wait for the user press key to continue
+            displayScores();
+        }
+        // exit the game
+        else if(menu_user_option == 4){
             game_running = false;
         }
     }
