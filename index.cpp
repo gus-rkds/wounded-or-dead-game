@@ -30,20 +30,6 @@ void displayHearts(int num) {
     cout << endl;
 }
 
-void displayScores() {
-  ifstream infile("scores.txt");
-  if (infile.is_open()) {
-    string line;
-    while (getline(infile, line)) {
-      cout << "    " << line << endl;
-    }
-    infile.close();
-  }
-  else {
-    cerr << "Unable to open file.\n";
-  }
-}
-
 void saveScore(const string& player, int score) {
   ofstream outfile("scores.txt", ios::app); // open file for appending
   if (outfile.is_open()) {
@@ -400,8 +386,8 @@ Beep(311, 100); // Eb4 negra
     Beep(293, 1000); // D4 blanca
     Beep(0, 1000); // silencio
     Beep(261, 1500); // C4 redonda
-  getch();
 
+    Sleep(500);
 }
 
 void winScreen(){
@@ -475,7 +461,7 @@ void winScreen(){
   Beep(933, 100);
   Beep(1047, 400);
 
-  getch();
+    Sleep(500);
 }
 
 
@@ -731,6 +717,41 @@ void printInstructions(){
     SetConsoleTextAttribute(output_handle, 7);
 
 
+    getch();
+}
+
+void displayScores() {
+    /*
+    Function that displays the leaderboard of the game 
+    input: none
+    output: print the scores of the game and wait for the user input
+    */
+
+    printTitle();
+    string leaderboard_header = "Puntajes";
+    // 6 is the color code for yellow
+    SetConsoleTextAttribute(output_handle, 6);
+    cout << getPaddingToCenter(leaderboard_header.length()) << leaderboard_header << endl;
+    
+    ifstream infile("scores.txt");
+    if (infile.is_open()) {
+        string line;
+        // 14 is the color code for light yellow
+        SetConsoleTextAttribute(output_handle, 14);
+        while (getline(infile, line)) {
+            string margin = getPaddingToCenter(line.length());
+            cout << margin << line << endl;
+        }
+        infile.close();
+        }
+        else {
+            cerr << "Unable to open file.\n";
+        }
+    // return to white
+    SetConsoleTextAttribute(output_handle, 7);
+
+    string leaderboard_footer = "Presiona cualquier tecla para volver al menu principal";
+    cout << getPaddingToCenter(leaderboard_footer.length()) << leaderboard_footer << endl;
     getch();
 }
 
