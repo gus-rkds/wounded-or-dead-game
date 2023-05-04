@@ -745,7 +745,7 @@ void displayScores() {
         infile.close();
         }
         else {
-            cerr << "Unable to open file.\n";
+            cout << "Unable to open file.\n";
         }
     // return to white
     SetConsoleTextAttribute(output_handle, 7);
