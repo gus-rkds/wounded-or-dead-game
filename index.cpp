@@ -587,7 +587,7 @@ int mainMenu(){
     printLineWithMarginColor(plain_options_text[2], margin_options);
 
     // get user input and highlight the actual options
-    char input_user = '';
+    char input_user = 'x';
     bool user_not_has_selected_option = true;
     while(user_not_has_selected_option){
         // the old new option it's the actual old option
