@@ -521,7 +521,7 @@ void deleteLine(int line){
     */
 
     gotoxy(80, line);
-    cout << "\r                                                             \r"
+    cout << "\r                                                             \r";
     gotoxy(0, line);
 }
 
@@ -630,10 +630,10 @@ int mainMenu(){
         gotoxy to the old options, delete the line and print the plain text 
         gotoxy to the new options, delete the line and print the formated text
         */
-        gotoxy(80, option_line[user_old_option])
+        gotoxy(80, option_line[user_old_option]);
         cout << '\r';
         printLineWithMarginColor(plain_options_text[user_old_option], margin_options);
-        gotoxy(80, option_line[user_new_option])
+        gotoxy(80, option_line[user_new_option]);
         cout << '\r';
         printLineWithMarginColor(formated_options_text[user_new_option], margin_options, 4);
 
