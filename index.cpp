@@ -559,7 +559,7 @@ int mainMenu(){
     int user_old_option = 1;
     int user_new_option = 1;
     int options_amount = 3;
-    int option_line[] = {0, 6, 7, 8};
+    int option_line[] = {0, 7, 8, 9};
 
     // margin of 29 blank spaces, the same as title
     string margin_options = "                             ";
