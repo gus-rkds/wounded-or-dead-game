@@ -1,15 +1,2 @@
-gustavo 1
-Gustavo 5
-gustavo 5
-zap 5
-gus 5
-gustavo 0
-gus 0
-gustavo 0
-gus 0
-jary 0
-gustavo 1
-GUSTAVO 3
-gustavo 1
-gus 1
-gus 1
+Gustavo 1
+Cristian 2
