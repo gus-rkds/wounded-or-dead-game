@@ -731,7 +731,7 @@ void displayScores() {
     string leaderboard_header = "Puntajes";
     // 6 is the color code for yellow
     SetConsoleTextAttribute(output_handle, 6);
-    cout << getPaddingToCenter(leaderboard_header.length()) << leaderboard_header << endl;
+    cout << getPaddingToCenter(leaderboard_header.length() + 2) << leaderboard_header << endl << endl;
     
     ifstream infile("scores.txt");
     if (infile.is_open()) {
@@ -749,9 +749,9 @@ void displayScores() {
         }
     // return to white
     SetConsoleTextAttribute(output_handle, 7);
-
+    
     string leaderboard_footer = "Presiona cualquier tecla para volver al menu principal";
-    cout << getPaddingToCenter(leaderboard_footer.length()) << leaderboard_footer << endl;
+    cout << endl << getPaddingToCenter(leaderboard_footer.length()) << leaderboard_footer << endl;
     getch();
 }
 

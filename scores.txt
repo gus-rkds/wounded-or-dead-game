@@ -1,2 +1,3 @@
 Gustavo 1
-Cristian 2
+Cristian 1
+Jary 1
