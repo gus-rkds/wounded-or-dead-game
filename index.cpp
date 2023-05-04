@@ -18,6 +18,20 @@ using namespace std;
 // Global Scope output handle 
 HANDLE output_handle = GetStdHandle(STD_OUTPUT_HANDLE);
 
+void displayScores() {
+  ifstream infile("scores.txt");
+  if (infile.is_open()) {
+    string line;
+    while (getline(infile, line)) {
+      cout << line << endl;
+    }
+    infile.close();
+  }
+  else {
+    cerr << "Unable to open file.\n";
+  }
+}
+
 void saveScore(const string& player, int score, string round_margin) {
   ofstream outfile("scores.txt", ios::app); // open file for appending
   if (outfile.is_open()) {
@@ -826,7 +840,7 @@ int main(){
 
             // Colors: 2 = green, 4 = red, 7 = white
             if(game_result == "win"){
-
+                displayScores();
                 winScreen();
                 SetConsoleTextAttribute(output_handle, 7);
             }
