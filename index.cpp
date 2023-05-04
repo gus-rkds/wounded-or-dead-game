@@ -585,8 +585,9 @@ int mainMenu(){
     char input_user = 'x';
     bool user_not_has_selected_option = true;
     while(user_not_has_selected_option){
+
         // the old new option it's the actual old option
-        user_new_option = user_old_option;
+        user_old_option = user_new_option;
         // get the user input
         input_user = getch();
 
