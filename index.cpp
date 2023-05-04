@@ -755,6 +755,8 @@ map<string, string> startGame(){
         cin.ignore();
         while(validRoundInput(user_input) == false){
             cout << round_margin << "Número Incorrecto: ";
+            Beep(350,100);
+            Beep(350,100);
             cin >> user_input;
             cin.ignore();
         }
