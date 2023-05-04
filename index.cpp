@@ -174,7 +174,7 @@ bool validRoundInput(string turn_input){
     }
     string input_str = to_string(input_int);
     // check if the input is a number of 4 digits and all digits are diferent
-    if (input_int < 1000 or input_int> 9999 or input_str.length() > 4){
+    if (input_int < 1000 or input_int> 9999 or input_str.length() != 4){
         return false;
     }
     else if (!isNumberHave4DigitDifferent(input_int)){
