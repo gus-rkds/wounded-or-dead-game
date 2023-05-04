@@ -749,6 +749,7 @@ map<string, string> startGame(){
         if(user_input == rng_game_number_str){
             // user has won
             game_variables["state"] = "win";
+            game_variables["score"] = to_string(actual_round);
         }
         else if(user_input == "0000"){
             // run backdoor
@@ -795,8 +796,6 @@ map<string, string> startGame(){
         cout << round_margin << "¡Ganaste! Introduce tu nombre: ";
         cin >> game_variables["player"];
         cin.ignore();
-        int scoreInt = stoi(game_variables["score"]);
-        game_variables["score"] = to_string(scoreInt);
         SetConsoleTextAttribute(output_handle, 7);
 
         Sleep(1000);
