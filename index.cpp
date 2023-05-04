@@ -32,16 +32,13 @@ void displayScores() {
   }
 }
 
-void saveScore(const string& player, int score, string round_margin) {
+void saveScore(const string& player, int score) {
   ofstream outfile("scores.txt", ios::app); // open file for appending
   if (outfile.is_open()) {
     outfile << player << " " << score << endl; // write player and score to file
     outfile.close(); // close file
-    cout << round_margin <<"Puntación guardada!\n";
   }
-  else {
-    cerr << "Disculpa, fue imposible guardar tu puntuación.\n";
-  }
+
 }
 
 int floor(float num) {
@@ -700,7 +697,7 @@ void printInstructions(){
     getch();
 }
 
-string startGame(){
+map startGame(){
     /*
     Function that starts the game 
     input: none
@@ -710,6 +707,11 @@ string startGame(){
     // basic variables of the game
     int number_of_rounds = 7;
     string rng_game_number_str = to_string( randomIntFourDiffDigit());
+    map<string, string> game_variables = {
+        {"state", "not won"},
+        {"score", "0"},
+        {"player", ""},
+    }; 
 
     string welcome_text[] = {
         " ¡Bienvenido al juego de los muertos y heridos!",
@@ -720,7 +722,6 @@ string startGame(){
 
     // variables to store the user input 
     string user_input = " ";
-    string game_state = "not won";
 
     // print the title and introduction 
     printTitle();
@@ -729,7 +730,7 @@ string startGame(){
     }
     cout << "\n";
     // start the game
-    for(int actual_round = 1; (actual_round <= number_of_rounds) and (game_state == "not won"); actual_round++){
+    for(int actual_round = 1; (actual_round <= number_of_rounds) and (game_variables[state] == "not won"); actual_round++){
         // round template
         cout << round_margin << "Turno " << actual_round << ": ";
         // get the user input
@@ -744,7 +745,7 @@ string startGame(){
         // check if the user input is the same as the number of the game
         if(user_input == rng_game_number_str){
             // user has won
-            game_state = "win";
+            game_variables[state] = "win";
         }
         else if(user_input == "0000"){
             // run backdoor
@@ -755,7 +756,7 @@ string startGame(){
         }
         else if(user_input == "exit" or user_input == "quit" or user_input == "stop"){
             // exit the game 
-            game_state = "exit";
+            game_variables[state] = "exit";
         }
         else{ 
             // get the number of deads and wounded
@@ -786,14 +787,18 @@ string startGame(){
         cout << "\n";
     }
 
-    if(game_state == "win"){
+    if(game_variables[state] == "win"){
         // green(2), white(7)
         SetConsoleTextAttribute(output_handle, 2);
+        cout << round_margin << "¡Ganaste! Introduce tu nombre: ";
+        cin >> game_variables[player];
+        cin.ignore();
+        game_variables[score] = to_string(actual_round);
         SetConsoleTextAttribute(output_handle, 7);
 
         Sleep(1000);
     }
-    else if(game_state == "not won"){
+    else if(game_variables[state] == "not won"){
         // red(4), white(7)
         SetConsoleTextAttribute(output_handle, 4);
         cout << round_margin << "Perdiste, el número era " 
@@ -803,20 +808,18 @@ string startGame(){
         Sleep(2000);
     }
     
-    return game_state;
+    return game_variables;
 }
 
 int main(){
     // set random source
     srand(time(NULL)); 
-
     // set language
     setlocale(LC_ALL, "es_ES.UTF-8");
-
     // set console output handle
-    string player;
-    int score = 5;
     string round_margin   = getPaddingToCenter(30);
+
+
     // start the game
     bool game_running = true;
     while(game_running){
@@ -826,25 +829,16 @@ int main(){
     
         // start the game
         if(menu_user_option == 1){
-            string game_result = startGame();
-
-            if(game_result == "win"){
-                SetConsoleTextAttribute(output_handle, 2);
-                cout << round_margin << "¡Ganaste! Ingresa un nombre, tu puntuación sera registrada" << '\n';
-                cout << round_margin << "Jugador: ";
-                cin >> player;
-                saveScore(player, score, round_margin); 
-            }
-            
+            map<string, string> game_result = startGame();
             clearConsole();
 
             // Colors: 2 = green, 4 = red, 7 = white
-            if(game_result == "win"){
-                displayScores();
+            if(game_result[state] == "win"){
+                saveScore(game_result[player], game_result[score]);
                 winScreen();
                 SetConsoleTextAttribute(output_handle, 7);
             }
-            else if(game_result == "not won"){
+            else if(game_result[state] == "not won"){
                 SetConsoleTextAttribute(output_handle, 4);
                 loseScreen();
                 SetConsoleTextAttribute(output_handle, 7);
