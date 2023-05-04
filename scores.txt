@@ -9,3 +9,6 @@ gustavo 0
 gus 0
 jary 0
 gustavo 1
+GUSTAVO 3
+gustavo 1
+gus 1

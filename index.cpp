@@ -828,10 +828,17 @@ map<string, string> startGame(){
 }
 
 int main(){
+    // resize console
+    HANDLE wHnd = GetStdHandle(STD_OUTPUT_HANDLE);
+    SMALL_RECT windowSize = {0, 0, 79, 30};
+    SetConsoleWindowInfo(wHnd, 1, &windowSize);
     // set random source
     srand(time(NULL)); 
     // set language
     setlocale(LC_ALL, "es_ES.UTF-8");
+    // resize console
+
+
     // set console output handle
     string round_margin   = getPaddingToCenter(30);
 
@@ -850,6 +857,10 @@ int main(){
 
             // Colors: 2 = green, 4 = red, 7 = white
             if(game_result["state"] == "win"){
+            	
+                SMALL_RECT windowSize = {0, 0, 100, 30};
+                SetConsoleWindowInfo(wHnd, 1, &windowSize);
+            	
                 SetConsoleTextAttribute(output_handle, 2);
                 int scoreInt = stoi(game_result["score"]);
                 saveScore(game_result["player"], scoreInt);
@@ -857,6 +868,9 @@ int main(){
                 SetConsoleTextAttribute(output_handle, 7);
             }
             else if(game_result["state"] == "not won"){
+            	
+                SMALL_RECT windowSize = {0, 0, 100, 30};
+                SetConsoleWindowInfo(wHnd, 1, &windowSize);            	
                 SetConsoleTextAttribute(output_handle, 4);
                 loseScreen();
                 SetConsoleTextAttribute(output_handle, 7);
