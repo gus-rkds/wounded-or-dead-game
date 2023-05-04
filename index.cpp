@@ -18,6 +18,18 @@ using namespace std;
 // Global Scope output handle 
 HANDLE output_handle = GetStdHandle(STD_OUTPUT_HANDLE);
 
+void displayHearts(int num) {
+    for (int i = 0; i < num; i++) {
+        SetConsoleTextAttribute(output_handle, 4);
+        cout << char(3);
+    }
+    for (int i = 0; i < (7 - num); i++) {
+        SetConsoleTextAttribute(output_handle, 7);
+        cout << char(3);
+    }
+    cout << endl;
+}
+
 void displayScores() {
   ifstream infile("scores.txt");
   if (infile.is_open()) {
@@ -734,6 +746,10 @@ map<string, string> startGame(){
     // start the game
     for(int actual_round = 1; (actual_round <= number_of_rounds) and (game_variables["state"] == "not won"); actual_round++){
         // round template
+        cout << round_margin;
+        displayHearts( 8 - actual_round);
+        cout << endl;
+        SetConsoleTextAttribute(output_handle, 7);
         cout << round_margin << "Turno " << actual_round << ": ";
         // get the user input
         cin >> user_input;
