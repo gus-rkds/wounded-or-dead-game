@@ -30,12 +30,12 @@ void displayHearts(int num) {
     cout << endl;
 }
 
-void displayScores(string margin) {
+void displayScores() {
   ifstream infile("scores.txt");
   if (infile.is_open()) {
     string line;
     while (getline(infile, line)) {
-      cout << margin << line << endl;
+      cout << "    " << line << endl;
     }
     infile.close();
   }
