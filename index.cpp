@@ -629,6 +629,7 @@ int mainMenu(){
         printLineWithMarginColor(plain_options_text[user_old_option], margin_options);
         deleteLine(option_line[user_new_option]);
         printLineWithMarginColor(formated_options_text[user_new_option], margin_options, 4);
+        gotoxy(0, 12);
 
         // if(input_user == '1'){
         //     user_new_option = 1;
