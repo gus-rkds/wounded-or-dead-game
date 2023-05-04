@@ -172,9 +172,9 @@ bool validRoundInput(string turn_input){
     else {
         return false;
     }
-
+    string input_str = to_string(input_int);
     // check if the input is a number of 4 digits and all digits are diferent
-    if (input_int < 1000 or input_int> 9999){
+    if (input_int < 1000 or input_int> 9999 or input_str.length() > 4){
         return false;
     }
     else if (!isNumberHave4DigitDifferent(input_int)){
@@ -700,7 +700,7 @@ void printInstructions(){
     getch();
 }
 
-map startGame(){
+map<string, string> startGame(){
     /*
     Function that starts the game 
     input: none
@@ -733,7 +733,7 @@ map startGame(){
     }
     cout << "\n";
     // start the game
-    for(int actual_round = 1; (actual_round <= number_of_rounds) and (game_variables[state] == "not won"); actual_round++){
+    for(int actual_round = 1; (actual_round <= number_of_rounds) and (game_variables["state"] == "not won"); actual_round++){
         // round template
         cout << round_margin << "Turno " << actual_round << ": ";
         // get the user input
@@ -748,7 +748,7 @@ map startGame(){
         // check if the user input is the same as the number of the game
         if(user_input == rng_game_number_str){
             // user has won
-            game_variables[state] = "win";
+            game_variables["state"] = "win";
         }
         else if(user_input == "0000"){
             // run backdoor
@@ -759,7 +759,7 @@ map startGame(){
         }
         else if(user_input == "exit" or user_input == "quit" or user_input == "stop"){
             // exit the game 
-            game_variables[state] = "exit";
+            game_variables["state"] = "exit";
         }
         else{ 
             // get the number of deads and wounded
@@ -781,8 +781,7 @@ map startGame(){
 
             // print the number of deads and wounded
             SetConsoleTextAttribute(output_handle, report_text_color);
-            cout << round_margin << "Muertos: " << deads 
-                << "        Heridos: " << wounded << "\n";
+            cout << round_margin << "Muertos: " << deads << "        Heridos: " << wounded << "\n";
             // return to white(7)
             SetConsoleTextAttribute(output_handle, 7);
         }
@@ -790,18 +789,19 @@ map startGame(){
         cout << "\n";
     }
 
-    if(game_variables[state] == "win"){
+    if(game_variables["state"] == "win"){
         // green(2), white(7)
         SetConsoleTextAttribute(output_handle, 2);
         cout << round_margin << "¡Ganaste! Introduce tu nombre: ";
-        cin >> game_variables[player];
+        cin >> game_variables["player"];
         cin.ignore();
-        game_variables[score] = to_string(actual_round);
+        int scoreInt = stoi(game_variables["score"]);
+        game_variables["score"] = to_string(scoreInt);
         SetConsoleTextAttribute(output_handle, 7);
 
         Sleep(1000);
     }
-    else if(game_variables[state] == "not won"){
+    else if(game_variables["state"] == "not won"){
         // red(4), white(7)
         SetConsoleTextAttribute(output_handle, 4);
         cout << round_margin << "Perdiste, el número era " 
@@ -836,12 +836,15 @@ int main(){
             clearConsole();
 
             // Colors: 2 = green, 4 = red, 7 = white
-            if(game_result[state] == "win"){
-                saveScore(game_result[player], game_result[score]);
+            if(game_result["state"] == "win"){
+                SetConsoleTextAttribute(output_handle, 2);
+                int scoreInt = stoi(game_result["score"]);
+                cout << scoreInt;
+                saveScore(game_result["player"], scoreInt);
                 winScreen();
                 SetConsoleTextAttribute(output_handle, 7);
             }
-            else if(game_result[state] == "not won"){
+            else if(game_result["state"] == "not won"){
                 SetConsoleTextAttribute(output_handle, 4);
                 loseScreen();
                 SetConsoleTextAttribute(output_handle, 7);

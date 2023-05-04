@@ -3,3 +3,7 @@ Gustavo 5
 gustavo 5
 zap 5
 gus 5
+gustavo 0
+gus 0
+gustavo 0
+gus 0
