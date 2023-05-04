@@ -838,7 +838,6 @@ int main(){
             if(game_result["state"] == "win"){
                 SetConsoleTextAttribute(output_handle, 2);
                 int scoreInt = stoi(game_result["score"]);
-                cout << scoreInt;
                 saveScore(game_result["player"], scoreInt);
                 winScreen();
                 SetConsoleTextAttribute(output_handle, 7);
