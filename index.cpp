@@ -594,7 +594,6 @@ int mainMenu(){
         user_new_option = user_old_option;
         // get the user input
         input_user = getch();
-        cin.ignore();
 
         // move the cursor based on the input, w is up, s is down
         if(input_user == KEY_UP or input_user == 'k' or
