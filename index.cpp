@@ -6,6 +6,7 @@
 #include <map>
 #include <locale.h>
 #include <fstream>
+#include <sstream>
 
 
 #define KEY_UP 72
@@ -726,7 +727,7 @@ void displayScores() {
     input: none
     output: print the scores of the game and wait for the user input
     */
-
+    map<int, string> scoresMap;
     printTitle();
     string leaderboard_header = "Puntajes";
     // 6 is the color code for yellow
@@ -739,20 +740,25 @@ void displayScores() {
         // 14 is the color code for light yellow
         SetConsoleTextAttribute(output_handle, 14);
         while (getline(infile, line)) {
-            string margin = getPaddingToCenter(line.length());
-            cout << margin << line << endl;
+            string name;
+            int score;
+            istringstream iss(line);
+            if (iss >> name >> score) {
+                scoresMap[score] = name;
+            }
         }
         infile.close();
+        for (const auto& pair : scoresMap) {
+            SetConsoleTextAttribute(output_handle, 6);
+            cout << getPaddingToCenter(leaderboard_header.length() + 2) << pair.second << ": " << pair.first << endl;
         }
-        else {
-            cout << "Unable to open file.\n";
-        }
-    // return to white
-    SetConsoleTextAttribute(output_handle, 7);
-    
-    string leaderboard_footer = "Presiona cualquier tecla para volver al menu principal";
-    cout << endl << getPaddingToCenter(leaderboard_footer.length()) << leaderboard_footer << endl;
-    getch();
+        // return to white
+        SetConsoleTextAttribute(output_handle, 7);
+
+        string leaderboard_footer = "Presiona cualquier tecla para volver al menu principal";
+        cout << endl << getPaddingToCenter(leaderboard_footer.length()) << leaderboard_footer << endl;
+        getch();
+    }
 }
 
 map<string, string> startGame(){
