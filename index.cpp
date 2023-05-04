@@ -859,7 +859,7 @@ map<string, string> startGame(){
     if(game_variables["state"] == "win"){
         // green(2), white(7)
         SetConsoleTextAttribute(output_handle, 2);
-        cout << round_margin << "¡Ganaste! Introduce tu nombre: ";
+        cout << round_margin << "¡Ganaste! Introduce tu nombre (sin espacios): ";
         cin >> game_variables["player"];
         cin.ignore();
         SetConsoleTextAttribute(output_handle, 7);
