@@ -486,6 +486,45 @@ string getPaddingToCenter(int text_width, int line_width = 80){
     return margin;
 }
 
+void printStrColor(string text, int color){
+    /*
+    Function that prints a string with a color
+    input: text, color
+    output: print the text with the color
+    */
+
+    // 7 is the color white in the text
+    SetConsoleTextAttribute(output_handle, color);
+    cout << text;
+    SetConsoleTextAttribute(output_handle, 7);
+}
+
+void printLineWithMarginColor(string text, string margin, int color = 7, bool endline = true){
+    /*
+    Function that prints a line of the menu
+    input: text, margin of the line, text color, if the line has endline
+    output: print the line with the settings
+    */
+
+    cout << margin;
+    printStrColor(text, color);
+    if(endline){
+        cout << "\n";
+    };
+}
+
+void deleteLine(int line){
+    /*
+    Function that deletes a line of the console
+    input: line to delete
+    output: delete the line
+    */
+
+    gotoxy(0, line);
+    cout << string(80, ' ');
+    gotoxy(0, line);
+}
+
 void printTitle(){
     /*
     Function that prints the title of the game 
@@ -521,87 +560,59 @@ int mainMenu(){
     output: print the main menu of the game and return the option selected by the user
     */
 
-    char input_user = ' '; 
-    int user_actual_option = 1;
+    // options form 1 to 3, don't use index 0
+    int user_old_option = 1;
+    int user_new_option = 1;
+    int options_amount = 3;
+    int option_line[] = {0, 7, 8, 9};
 
     // margin of 29 blank spaces, the same as title
     string margin_options = "                             ";
 
+    string plain_options_text[] = {
+        "  1. Jugar           ",
+        "  2. Instrucciones   ",
+        "  3. Salir           ",
+    };
+    string formated_options_text[] = {
+        "> 1. Jugar          <",
+        "> 2. Instrucciones  <",
+        "> 3. Salir          <",
+    };
+
+    // Print title and options, 4 is red
+    printTitle();
+    printLineWithMarginColor(formated_options_text[0], margin_options, 4);
+    printLineWithMarginColor(plain_options_text[1], margin_options);
+    printLineWithMarginColor(plain_options_text[2], margin_options);
+
+    // get user input and highlight the actual options
     bool user_not_has_selected_option = true;
     while(user_not_has_selected_option){
-        // print the title
-        printTitle();
-
-        // set the menu options 
-        string play_option_text1 =         "  1. Jugar           ";
-        string instructions_option_text2 = "  2. Instrucciones   ";
-        string exit_option_text3 =         "  3. Salir           ";
-        int last_index_options = play_option_text1.length() - 1;
-
-        // highlight the actual option 
-        if(user_actual_option == 1){
-            play_option_text1[0] = '>';
-            play_option_text1[last_index_options] = '<';
-        }
-        else if(user_actual_option == 2){
-            instructions_option_text2[0] = '>';
-            instructions_option_text2[last_index_options] = '<';
-        }
-        else if(user_actual_option == 3){
-            exit_option_text3[0] = '>';
-            exit_option_text3[last_index_options] = '<';
-        }
-
-        // print the menu options 
-        // 12 = light_red
-        if(user_actual_option == 1){
-            SetConsoleTextAttribute(output_handle, 12);
-            cout << margin_options << play_option_text1 << "\n";
-            SetConsoleTextAttribute(output_handle, 7);
-
-            cout << margin_options << instructions_option_text2 << "\n";
-            cout << margin_options << exit_option_text3 << "\n";
-        }
-        else if(user_actual_option == 2){
-            cout << margin_options << play_option_text1 << "\n";
-
-            SetConsoleTextAttribute(output_handle, 12);
-            cout << margin_options << instructions_option_text2 << "\n";
-            SetConsoleTextAttribute(output_handle, 7);
-
-            cout << margin_options << exit_option_text3 << "\n";
-        }
-        else if(user_actual_option == 3){
-            cout << margin_options << play_option_text1 << "\n";
-            cout << margin_options << instructions_option_text2 << "\n";
-
-            SetConsoleTextAttribute(output_handle, 12);
-            cout << margin_options << exit_option_text3 << "\n";
-            SetConsoleTextAttribute(output_handle, 7);
-        }
-       
-        // get the user input 
-        input_user = getch();
+        // the old new option it's the actual old option
+        user_new_option = user_old_option;
+        // get user input 
+        char input_user = getch();
 
         // move the cursor based on the input, w is up, s is down
         if(input_user == KEY_UP or input_user == 'k' or
             input_user == 'w'){
 
-            if(user_actual_option > 1){
-                user_actual_option -= 1;
+            if(user_new_option > 1){
+                user_new_option -= 1;
             }
-            else if(user_actual_option == 1){
-                user_actual_option = 3;
+            else if(user_new_option == 1){
+                user_new_option = options_amount;
             }
         }
         else if(input_user == KEY_DOWN or input_user == 'j'
             or input_user == 's'){
 
-            if(user_actual_option < 3){
-                user_actual_option += 1;
+            if(user_new_option < options_amount){
+                user_new_option += 1;
             }
-            else if(user_actual_option == 3){
-                user_actual_option = 1;
+            else if(user_new_option == options_amount){
+                user_new_option = 1;
             }
         }
         else if(input_user == '\r' or input_user == 'e'
@@ -612,23 +623,32 @@ int mainMenu(){
             user_not_has_selected_option = false;
         };
 
-        if(input_user == '1'){
-            user_actual_option = 1;
-            user_not_has_selected_option = false;
-        }
-        else if(input_user == '2'){
-            user_actual_option = 2;
-            user_not_has_selected_option = false;
-        }
-        else if(input_user == '3'){
-            user_actual_option = 3;
-            user_not_has_selected_option = false;
-        }
 
-        clearConsole();
+        /*
+        highlight the new options and unhighlight the old options
+        gotoxy to the old options, delete the line and print the plain text 
+        gotoxy to the new options, delete the line and print the formated text
+        */
+        deleteLine(option_line[user_old_option]);
+        printLineWithMarginColor(plain_options_text[user_old_option], margin_options);
+        deleteLine(option_line[user_new_option]);
+        printLineWithMarginColor(formated_options_text[user_new_option], margin_options, 4);
+
+        // if(input_user == '1'){
+        //     user_new_option = 1;
+        //     user_not_has_selected_option = false;
+        // }
+        // else if(input_user == '2'){
+        //     user_new_option = 2;
+        //     user_not_has_selected_option = false;
+        // }
+        // else if(input_user == '3'){
+        //     user_new_option = 3;
+        //     user_not_has_selected_option = false;
+        // }
     }
 
-    return user_actual_option;
+    return user_new_option;
 }
 
 void printInstructions(){
