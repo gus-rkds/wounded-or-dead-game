@@ -587,12 +587,14 @@ int mainMenu(){
     printLineWithMarginColor(plain_options_text[2], margin_options);
 
     // get user input and highlight the actual options
+    char input_user = '';
     bool user_not_has_selected_option = true;
     while(user_not_has_selected_option){
         // the old new option it's the actual old option
         user_new_option = user_old_option;
-        // get user input 
-        char input_user = getch();
+        // get the user input
+        input_user = getch();
+        cin.ignore();
 
         // move the cursor based on the input, w is up, s is down
         if(input_user == KEY_UP or input_user == 'k' or
