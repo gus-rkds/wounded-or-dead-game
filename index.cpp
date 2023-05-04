@@ -520,8 +520,8 @@ void deleteLine(int line){
     output: delete the line
     */
 
-    gotoxy(0, line);
-    cout << string(80, ' ');
+    gotoxy(80, line);
+    cout << "\r                                                             \r"
     gotoxy(0, line);
 }
 
